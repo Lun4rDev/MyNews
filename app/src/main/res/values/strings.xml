@@ -4,5 +4,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <!-- Actions strings -->
+    <string name="action_notifications">Notifications</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About</string>
+    <string name="action_search">Search</string>
+
+    <string name="top_stories">Top Stories</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="all_categories">All categories</string>
+
+    <string name="nyt_api_key">79267985f9cc49558b809254d951d64c</string>
+    <string name="text_empty">No results</string>
 </resources>

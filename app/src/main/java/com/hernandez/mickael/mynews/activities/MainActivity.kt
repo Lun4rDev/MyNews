@@ -1,4 +1,4 @@
-package com.hernandez.mickael.mynews
+package com.hernandez.mickael.mynews.activities
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -13,25 +13,69 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import android.support.v4.app.FragmentPagerAdapter
-
+import android.support.v4.view.ViewPager
+import android.util.Log
+import android.widget.ListView
+import com.hernandez.mickael.mynews.R
+import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
+import com.hernandez.mickael.mynews.interfaces.MostPopularInterface
+import com.hernandez.mickael.mynews.models.Article
+import com.hernandez.mickael.mynews.models.Result
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    var url = "https://api.nytimes.com/svc/"
+    lateinit var response : Response<Result>
+
+    private lateinit var mostPopInterface : MostPopularInterface
+    private var mostPopularArray : ArrayList<Article> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        var mostPopularList = findViewById<ListView>(R.id.mostPopularList)
+        var topStoriesList = findViewById<ListView>(R.id.topStoriesList)
+
+
+        mostPopularList.adapter = ArticleViewAdapter(this.baseContext, R.layout.article_row, mostPopularArray)
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
         nav_view.setNavigationItemSelectedListener(this)
+
+        var retrofit = Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build()
+        mostPopInterface = retrofit.create(MostPopularInterface::class.java)
 
         var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         //tabLayout.addTab(tabLayout.newTab().setText("Tab 1")); way to add other categories tabs
+
+        loadMostPopular()
+        //Log.d("RESULT", result.get(1).title))
+    }
+
+    fun loadMostPopular() {
+        var call : Call<Result> = mostPopInterface.all()
+        val callback = object : Callback<Result> {
+            override fun onFailure(call: Call<Result>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(call: Call<Result>?, response: Response<Result>) {
+                //mostPopularArray = response.body()
+                //Log.d("RESULT", result.toString())
+            }
+
+        }
+        call.enqueue(callback)
     }
 
     override fun onBackPressed() {
@@ -71,27 +115,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-}
-
-internal class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
-    private val mFragmentList = ArrayList<Fragment>()
-    private val mFragmentTitleList = ArrayList<String>()
-
-    override fun getItem(position: Int): Fragment {
-        return mFragmentList[position]
-    }
-
-    override fun getCount(): Int {
-        return mFragmentList.size
-    }
-
-    fun addFragment(fragment: Fragment, title: String) {
-        mFragmentList.add(fragment)
-        mFragmentTitleList.add(title)
-    }
-
-    override fun getPageTitle(position: Int): CharSequence {
-        return mFragmentTitleList[position]
     }
 }

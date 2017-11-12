@@ -17,17 +17,6 @@ import java.util.zip.Inflater
  */
 open class ArticleViewAdapter(context: Context, resource: Int, list: ArrayList<Article>) :
         ArrayAdapter<Article>(context, resource, list) {
-    override fun getItem(p0: Int): Article {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getItemId(p0: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun getView(position: Int, originalView: View?, container: ViewGroup?): View {
         val convertView : View = originalView ?: LayoutInflater.from(context).inflate(R.layout.article_row, container, false)

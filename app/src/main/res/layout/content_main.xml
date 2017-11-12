@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <android.support.design.widget.TabItem
+        <!--<android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_stories"/>
@@ -23,7 +23,14 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/most_popular"/>
+            android:text="@string/most_popular"/>-->
 
     </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
 </android.support.constraint.ConstraintLayout>

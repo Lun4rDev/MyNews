@@ -1,10 +1,12 @@
 package com.hernandez.mickael.mynews.adapters;
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
 class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+
     private val mFragmentList = ArrayList<Fragment>()
     private val mFragmentTitleList = ArrayList<String>()
 

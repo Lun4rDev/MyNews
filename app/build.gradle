@@ -32,7 +32,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // Retrofit with OkHttp and Gson
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    //compile 'com.nytimes.android:store-kotlin3:3.0.0-beta'
+
+    // Stetho: Chrome based Android debugging bridge
+    compile 'com.facebook.stetho:stetho:1.5.0'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.4.1'  // For intercepting OkHttp requests
 }

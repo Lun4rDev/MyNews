@@ -1,5 +1,6 @@
 package com.hernandez.mickael.mynews.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -41,11 +42,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        var mostPopularList = findViewById<ListView>(R.id.mostPopularList)
         var topStoriesList = findViewById<ListView>(R.id.topStoriesList)
+        var mostPopularList = findViewById<ListView>(R.id.mostPopularList)
+        if(mostPopularList != null){
 
-
-        mostPopularList.adapter = ArticleViewAdapter(this.baseContext, R.layout.article_row, mostPopularArray)
+            mostPopularList.adapter = ArticleViewAdapter(this.baseContext, R.layout.article_row, mostPopularArray)
+        }
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -98,12 +100,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_nofitications -> return true
+            R.id.action_nofitications -> {
+                startActivity(Intent(this, NotificationActivity::class.java))
+                return true
+            }
             R.id.action_help -> return true
             R.id.action_about -> return true
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.

@@ -16,4 +16,6 @@
 
     <string name="nyt_api_key">79267985f9cc49558b809254d951d64c</string>
     <string name="text_empty">No results</string>
+    <string name="search_query_terms">Search query term</string>
+    <string name="enable_notifications_once_per_day">Enable notifications (once per day)</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.hernandez.mickael.mynews.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -14,17 +15,13 @@ import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
 import com.hernandez.mickael.mynews.fragments.MostPopularFragment
 import com.hernandez.mickael.mynews.fragments.TopStoriesFragment
-import com.hernandez.mickael.mynews.models.Result
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val LOG_TAG = "DebugTag"
-    val url = "https://api.nytimes.com/svc/"
-    lateinit var response : Response<Result>
 
     private var mViewPagerAdapter : ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
 

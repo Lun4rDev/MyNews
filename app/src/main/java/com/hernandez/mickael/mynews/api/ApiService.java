@@ -1,6 +1,9 @@
 package com.hernandez.mickael.mynews.api;
 
 import com.hernandez.mickael.mynews.models.ApiResponse;
+import com.hernandez.mickael.mynews.models.Article;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -10,20 +13,22 @@ import retrofit2.http.Query;
  * Created by dw on 22/02/17.
  */
 
+/** NYTimes API interface */
 public interface ApiService {
 
-    // NYTimes Article Search API
-    // Documentation:
-    //   - http://developer.nytimes.com/article_search_v2.json
-    //   - https://github.com/NYTimes/public_api_specs/tree/master/article_search
-    // NYT article search API returns maximum 10 results at a time (page 0 = 1-10, page 1 = 11-20, etc.)
-    // The highest page number that can be requested is 120
-    String API_KEY = "923ff50fda8a4f10befc9489619ea1c3";
-    String API_BASE_URL = "https://api.nytimes.com/svc/search/v2/";
+    String API_KEY = "79267985f9cc49558b809254d951d64c";
+    String API_BASE_URL = "https://api.nytimes.com/svc/";
     String API_IMAGE_BASE_URL = "http://www.nytimes.com/";
 
-    @GET("articlesearch.json")
-    Call<ApiResponse> query(
+    @GET("mostpopular/v2/mostviewed/all-sections/1.json")
+    Call<ApiResponse> mostPopular();
+
+    @GET("topstories/v2/world.json")
+    Call<ApiResponse> topStories();
+
+    // Date format is YYYYMMDD
+    @GET("search/v2/articlesearch.json")
+    Call<ApiResponse> articleSearch(
             @Query("q") String query,
             @Query("fq") String filteredQuery,
             @Query("begin_date") String beginDate,

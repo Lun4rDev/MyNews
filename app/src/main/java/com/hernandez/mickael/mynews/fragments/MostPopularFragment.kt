@@ -12,6 +12,7 @@ import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
 import com.hernandez.mickael.mynews.api.ApiServiceSingleton
 import com.hernandez.mickael.mynews.models.ApiResponse
 import com.hernandez.mickael.mynews.models.Article
+import com.hernandez.mickael.mynews.models.Result
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,20 +27,32 @@ class MostPopularFragment : ListFragment() {
     var url = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.json"
     private lateinit var mList : ListView
     private lateinit var mAdapter : ArticleViewAdapter
-    private var mArray : ArrayList<Article> = ArrayList()
+    private var mArray : ArrayList<Result> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater!!.inflate(R.layout.fragment_topstories, container, false)
-        mList = view.findViewById(android.R.id.list)
+
+        mList = view.findViewById<ListView>(android.R.id.list)
+
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
-        Log.d(LOG_TAG, mList.toString())
         mList.adapter = mAdapter
-        query("Clinton", null, null, null, null, null, mAdapter)
-        mAdapter.notifyDataSetChanged()
+
+        var apiService = ApiServiceSingleton.getInstance()
+        apiService.mostPopular().enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>?, response: Response<ApiResponse>?) {
+                mAdapter.addAll(response?.body()?.results)
+                mAdapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<ApiResponse>?, t: Throwable?) {
+                Log.d(LOG_TAG, "MOSTPOPULAR API CALL FAILED")
+            }
+
+        })
         return view
     }
 
-    private fun query(q:String, fq: String?, beginDate: String?, endDate: String?, sort: String?, page: Int?, pAdapter: ArticleViewAdapter) {
+    /*private fun query(q:String, fq: String?, beginDate: String?, endDate: String?, sort: String?, page: Int?, pAdapter: ArticleViewAdapter) {
         //mProgressDialog.show()
         val call = ApiServiceSingleton.getInstance().query(q, fq, beginDate, endDate, sort, page)
         call.enqueue(object: Callback<ApiResponse> {
@@ -76,5 +89,5 @@ class MostPopularFragment : ListFragment() {
                 t.printStackTrace()
             }
         })
-    }
+    }*/
 }

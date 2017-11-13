@@ -1,141 +1,209 @@
 package com.hernandez.mickael.mynews.models;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.JsonObject;
 
 public class Result {
 
-@SerializedName("url")
-@Expose
-private String url;
-@SerializedName("column")
-@Expose
-private String column;
-@SerializedName("section")
-@Expose
-private String section;
-@SerializedName("byline")
-@Expose
-private String byline;
-@SerializedName("title")
-@Expose
-private String title;
-@SerializedName("abstract")
-@Expose
-private String _abstract;
-@SerializedName("published_date")
-@Expose
-private String publishedDate;
-@SerializedName("source")
-@Expose
-private String source;
-@SerializedName("des_facet")
-@Expose
-private DesFacet desFacet;
-@SerializedName("org_facet")
-@Expose
-private OrgFacet orgFacet;
-@SerializedName("per_facet")
-@Expose
-private PerFacet perFacet;
-@SerializedName("geo_facet")
-@Expose
-private GeoFacet geoFacet;
+    @SerializedName("url")
+    @Expose
+    private String url;
+    @SerializedName("adx_keywords")
+    @Expose
+    private String adxKeywords;
+    @SerializedName("column")
+    @Expose
+    private Object column;
+    @SerializedName("section")
+    @Expose
+    private String section;
+    @SerializedName("byline")
+    @Expose
+    private String byline;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("abstract")
+    @Expose
+    private String _abstract;
+    @SerializedName("published_date")
+    @Expose
+    private String publishedDate;
+    @SerializedName("source")
+    @Expose
+    private String source;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("asset_id")
+    @Expose
+    private Integer assetId;
+    @SerializedName("views")
+    @Expose
+    private Integer views;
+    @SerializedName("des_facet")
+    @Expose
+    private List<String> desFacet = null;
+    @SerializedName("org_facet")
+    @Expose
+    private List<String> orgFacet = null;
+    @SerializedName("per_facet")
+    @Expose
+    private List<String> perFacet = null;
+    @SerializedName("geo_facet")
+    @Expose
+    private List<String> geoFacet = null;
+    @SerializedName("media")
+    @Expose
+    private List<Medium> media = null;
 
-public String getUrl() {
-return url;
-}
+    public String getUrl() {
+        return url;
+    }
 
-public void setUrl(String url) {
-this.url = url;
-}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-public String getColumn() {
-return column;
-}
+    public String getAdxKeywords() {
+        return adxKeywords;
+    }
 
-public void setColumn(String column) {
-this.column = column;
-}
+    public void setAdxKeywords(String adxKeywords) {
+        this.adxKeywords = adxKeywords;
+    }
 
-public String getSection() {
-return section;
-}
+    public Object getColumn() {
+        return column;
+    }
 
-public void setSection(String section) {
-this.section = section;
-}
+    public void setColumn(Object column) {
+        this.column = column;
+    }
 
-public String getByline() {
-return byline;
-}
+    public String getSection() {
+        return section;
+    }
 
-public void setByline(String byline) {
-this.byline = byline;
-}
+    public void setSection(String section) {
+        this.section = section;
+    }
 
-public String getTitle() {
-return title;
-}
+    public String getByline() {
+        return byline;
+    }
 
-public void setTitle(String title) {
-this.title = title;
-}
+    public void setByline(String byline) {
+        this.byline = byline;
+    }
 
-public String getAbstract() {
-return _abstract;
-}
+    public String getType() {
+        return type;
+    }
 
-public void setAbstract(String _abstract) {
-this._abstract = _abstract;
-}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-public String getPublishedDate() {
-return publishedDate;
-}
+    public String getTitle() {
+        return title;
+    }
 
-public void setPublishedDate(String publishedDate) {
-this.publishedDate = publishedDate;
-}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-public String getSource() {
-return source;
-}
+    public String getAbstract() {
+        return _abstract;
+    }
 
-public void setSource(String source) {
-this.source = source;
-}
+    public void setAbstract(String _abstract) {
+        this._abstract = _abstract;
+    }
 
-public DesFacet getDesFacet() {
-return desFacet;
-}
+    public String getPublishedDate() {
+        return publishedDate;
+    }
 
-public void setDesFacet(DesFacet desFacet) {
-this.desFacet = desFacet;
-}
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
 
-public OrgFacet getOrgFacet() {
-return orgFacet;
-}
+    public String getSource() {
+        return source;
+    }
 
-public void setOrgFacet(OrgFacet orgFacet) {
-this.orgFacet = orgFacet;
-}
+    public void setSource(String source) {
+        this.source = source;
+    }
 
-public PerFacet getPerFacet() {
-return perFacet;
-}
+    public Integer getId() {
+        return id;
+    }
 
-public void setPerFacet(PerFacet perFacet) {
-this.perFacet = perFacet;
-}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-public GeoFacet getGeoFacet() {
-return geoFacet;
-}
+    public Integer getAssetId() {
+        return assetId;
+    }
 
-public void setGeoFacet(GeoFacet geoFacet) {
-this.geoFacet = geoFacet;
-}
+    public void setAssetId(Integer assetId) {
+        this.assetId = assetId;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
+    public List<String> getDesFacet() {
+        return desFacet;
+    }
+
+    public void setDesFacet(List<String> desFacet) {
+        this.desFacet = desFacet;
+    }
+
+    public List<String> getOrgFacet() {
+        return orgFacet;
+    }
+
+    public void setOrgFacet(List<String> orgFacet) {
+        this.orgFacet = orgFacet;
+    }
+
+    public List<String> getPerFacet() {
+        return perFacet;
+    }
+
+    public void setPerFacet(List<String> perFacet) {
+        this.perFacet = perFacet;
+    }
+
+    public List<String> getGeoFacet() {
+        return geoFacet;
+    }
+
+    public void setGeoFacet(List<String> geoFacet) {
+        this.geoFacet = geoFacet;
+    }
+
+    public List<Medium> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<Medium> media) {
+        this.media = media;
+    }
 
 }

@@ -49,15 +49,14 @@ public class ApiServiceSingleton {
             }
         };
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        /*OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(apiKeyInterceptor)
                 .addNetworkInterceptor(new StethoInterceptor())  // Enable Stetho network inspection
-                .build();
+                .build();*/
 
         // Create Retrofit instance
         return new Retrofit.Builder()
                 .baseUrl(ApiService.API_BASE_URL)
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

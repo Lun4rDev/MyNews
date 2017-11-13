@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.models.Article
+import com.hernandez.mickael.mynews.models.Result
 import java.net.URI
 import java.util.zip.Inflater
 
@@ -15,15 +16,15 @@ import java.util.zip.Inflater
 /**
  * Created by Mickael Hernandez on 09/11/2017.
  */
-open class ArticleViewAdapter(context: Context, resource: Int, list: ArrayList<Article>) :
-        ArrayAdapter<Article>(context, resource, list) {
+open class ArticleViewAdapter(context: Context, resource: Int, list: ArrayList<Result>) :
+        ArrayAdapter<Result>(context, resource, list) {
 
     override fun getView(position: Int, originalView: View?, container: ViewGroup?): View {
         val convertView : View = originalView ?: LayoutInflater.from(context).inflate(R.layout.article_row, container, false)
-        convertView.findViewById<TextView>(R.id.section_text).text = getItem(position).getMultimedia().toString()
-        convertView.findViewById<TextView>(R.id.title_text).text = getItem(position).getHeadline().toString()
-        convertView.findViewById<TextView>(R.id.date_text).text = getItem(position).getPublishedDate().toString()
-        convertView.findViewById<ImageView>(R.id.article_img).setImageURI(Uri.parse(getItem(position).getUri()))
+        convertView.findViewById<TextView>(R.id.section_text).text = getItem(position).section.toString()
+        convertView.findViewById<TextView>(R.id.title_text).text = getItem(position).title.toString()
+        convertView.findViewById<TextView>(R.id.date_text).text = getItem(position).publishedDate.toString()
+        convertView.findViewById<ImageView>(R.id.article_img).setImageURI(Uri.parse(getItem(position).media[0].mediaMetadata[0].url))
         return convertView
     }
 

@@ -1,76 +1,88 @@
 package com.hernandez.mickael.mynews.models;
 
+import java.util.Collections;
 import java.util.List;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
 
 public class Medium {
 
-@SerializedName("type")
-@Expose
-private String type;
-@SerializedName("subtype")
-@Expose
-private String subtype;
-@SerializedName("caption")
-@Expose
-private String caption;
-@SerializedName("copyright")
-@Expose
-private String copyright;
-@SerializedName("approved_for_syndication")
-@Expose
-private Integer approvedForSyndication;
-@SerializedName("media-metadata")
-@Expose
-private List<MediaMetadatum> mediaMetadata = null;
+    public Medium() {
+        this.mediaMetadata = Collections.emptyList();
+    }
 
-public String getType() {
-return type;
-}
+    public Medium(List<MediaMetadatum> medium) {
+        this.mediaMetadata = medium;
+    }
 
-public void setType(String type) {
-this.type = type;
-}
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("subtype")
+    @Expose
+    private String subtype;
+    @SerializedName("caption")
+    @Expose
+    private String caption;
+    @SerializedName("copyright")
+    @Expose
+    private String copyright;
+    @SerializedName("approved_for_syndication")
+    @Expose
+    private Integer approvedForSyndication;
+    @SerializedName("media-metadata")
+    @Expose
+    @JsonAdapter(MediumAdapterFactory.class)
+    private List<MediaMetadatum> mediaMetadata = null;
 
-public String getSubtype() {
-return subtype;
-}
+    public String getType() {
+    return type;
+    }
 
-public void setSubtype(String subtype) {
-this.subtype = subtype;
-}
+    public void setType(String type) {
+    this.type = type;
+    }
 
-public String getCaption() {
-return caption;
-}
+    public String getSubtype() {
+    return subtype;
+    }
 
-public void setCaption(String caption) {
-this.caption = caption;
-}
+    public void setSubtype(String subtype) {
+    this.subtype = subtype;
+    }
 
-public String getCopyright() {
-return copyright;
-}
+    public String getCaption() {
+    return caption;
+    }
 
-public void setCopyright(String copyright) {
-this.copyright = copyright;
-}
+    public void setCaption(String caption) {
+    this.caption = caption;
+    }
 
-public Integer getApprovedForSyndication() {
-return approvedForSyndication;
-}
+    public String getCopyright() {
+    return copyright;
+    }
 
-public void setApprovedForSyndication(Integer approvedForSyndication) {
-this.approvedForSyndication = approvedForSyndication;
-}
+    public void setCopyright(String copyright) {
+    this.copyright = copyright;
+    }
 
-public List<MediaMetadatum> getMediaMetadata() {
-return mediaMetadata;
-}
+    public Integer getApprovedForSyndication() {
+    return approvedForSyndication;
+    }
 
-public void setMediaMetadata(List<MediaMetadatum> mediaMetadata) {
-this.mediaMetadata = mediaMetadata;
-}
+    public void setApprovedForSyndication(Integer approvedForSyndication) {
+    this.approvedForSyndication = approvedForSyndication;
+    }
+
+    public List<MediaMetadatum> getMediaMetadata() {
+    return mediaMetadata;
+    }
+
+    public void setMediaMetadata(List<MediaMetadatum> mediaMetadata) {
+    this.mediaMetadata = mediaMetadata;
+    }
 
 }

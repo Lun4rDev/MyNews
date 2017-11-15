@@ -1,10 +1,10 @@
 package com.hernandez.mickael.mynews.activities
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
+import android.support.v4.app.FragmentActivity
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
@@ -16,7 +16,6 @@ import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
 import com.hernandez.mickael.mynews.fragments.MostPopularFragment
 import com.hernandez.mickael.mynews.fragments.TopStoriesFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -30,9 +29,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+
         // UI elements
-        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        var viewPager = findViewById<ViewPager>(R.id.viewpager)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val viewPager = findViewById<ViewPager>(R.id.fragmentpager)
 
         // Setting viewpager adapter, linking to tab layout
         viewPager.adapter = mViewPagerAdapter
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mViewPagerAdapter.addFragment(MostPopularFragment(), getString(R.string.most_popular))
         mViewPagerAdapter.addFragment(TopStoriesFragment(), getString(R.string.top_stories))
         mViewPagerAdapter.notifyDataSetChanged()
+        supportFragmentManager.beginTransaction().commit()
 
         // Drawer
         val toggle = ActionBarDrawerToggle(

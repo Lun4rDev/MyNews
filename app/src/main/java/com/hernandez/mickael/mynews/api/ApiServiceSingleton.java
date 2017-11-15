@@ -1,10 +1,11 @@
 package com.hernandez.mickael.mynews.api;
 
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hernandez.mickael.mynews.models.Medium;
+import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
+import com.hernandez.mickael.mynews.utils.ResultsDeserializerJson;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,7 +38,15 @@ public class ApiServiceSingleton {
     private static Retrofit getRetrofit() {
 
         // Customise Gson instance
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                //.registerTypeAdapter(Medium.class, new ResultsDeserializerJson())
+                .registerTypeAdapterFactory(new MediumAdapterFactory())
+                .create();
+
+        // Debug interceptor
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         // Append api-key parameter to every query
         Interceptor apiKeyInterceptor = new Interceptor() {
@@ -49,14 +59,15 @@ public class ApiServiceSingleton {
             }
         };
 
-        /*OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)  // Enable debugging
                 .addInterceptor(apiKeyInterceptor)
-                .addNetworkInterceptor(new StethoInterceptor())  // Enable Stetho network inspection
-                .build();*/
+                .build();
 
         // Create Retrofit instance
         return new Retrofit.Builder()
                 .baseUrl(ApiService.API_BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

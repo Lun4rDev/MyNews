@@ -25,6 +25,10 @@
             android:name=".activities.NotificationActivity"
             android:label="@string/action_notifications"
             android:parentActivityName=".activities.MainActivity"/>
+        <activity
+            android:name=".activities.WebViewActivity"
+            android:label="@string/action_webview"
+            android:parentActivityName=".activities.MainActivity"/>
     </application>
 
 </manifest>

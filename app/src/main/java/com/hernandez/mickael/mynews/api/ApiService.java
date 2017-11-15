@@ -1,9 +1,6 @@
 package com.hernandez.mickael.mynews.api;
 
 import com.hernandez.mickael.mynews.models.ApiResponse;
-import com.hernandez.mickael.mynews.models.Article;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -3,64 +3,86 @@ package com.hernandez.mickael.mynews.models;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.JsonObject;
 
 public class Result {
+
+    public Result(String title, String date, String section){
+        this.title = title;
+        this.publishedDate = date;
+        this.section = section;
+    }
 
     @SerializedName("url")
     @Expose
     private String url;
+
     @SerializedName("adx_keywords")
     @Expose
     private String adxKeywords;
+
     @SerializedName("column")
     @Expose
     private Object column;
+
     @SerializedName("section")
     @Expose
     private String section;
+
     @SerializedName("byline")
     @Expose
     private String byline;
+
     @SerializedName("type")
     @Expose
     private String type;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("abstract")
     @Expose
     private String _abstract;
+
     @SerializedName("published_date")
     @Expose
     private String publishedDate;
+
     @SerializedName("source")
     @Expose
     private String source;
+
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Long id;
+
     @SerializedName("asset_id")
     @Expose
-    private Integer assetId;
+    private Long assetId;
+
     @SerializedName("views")
     @Expose
     private Integer views;
-    @SerializedName("des_facet")
+
+    /*@SerializedName("des_facet")
     @Expose
     private List<String> desFacet = null;
+
     @SerializedName("org_facet")
     @Expose
     private List<String> orgFacet = null;
+
     @SerializedName("per_facet")
     @Expose
     private List<String> perFacet = null;
+
     @SerializedName("geo_facet")
     @Expose
     private List<String> geoFacet = null;
+
     @SerializedName("media")
     @Expose
-    private List<Medium> media = null;
+    private List<Medium> media = null;*/
 
     public String getUrl() {
         return url;
@@ -142,19 +164,19 @@ public class Result {
         this.source = source;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getAssetId() {
+    public Long getAssetId() {
         return assetId;
     }
 
-    public void setAssetId(Integer assetId) {
+    public void setAssetId(Long assetId) {
         this.assetId = assetId;
     }
 
@@ -166,7 +188,7 @@ public class Result {
         this.views = views;
     }
 
-    public List<String> getDesFacet() {
+    /*public List<String> getDesFacet() {
         return desFacet;
     }
 
@@ -204,6 +226,6 @@ public class Result {
 
     public void setMedia(List<Medium> media) {
         this.media = media;
-    }
+    }*/
 
 }

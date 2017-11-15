@@ -1,5 +1,6 @@
 package com.hernandez.mickael.mynews.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,7 +18,7 @@ public class ApiResponse {
     private Integer numResults;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private ArrayList<Result> results = null;
 
     public String getStatus() {
         return status;
@@ -47,7 +48,7 @@ public class ApiResponse {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(ArrayList<Result> results) {
         this.results = results;
     }
 

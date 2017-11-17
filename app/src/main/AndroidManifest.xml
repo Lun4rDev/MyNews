@@ -29,6 +29,12 @@
             android:name=".activities.WebViewActivity"
             android:label="@string/action_webview"
             android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.SearchActivity"
+                  android:label="@string/action_search"
+                  android:parentActivityName=".activities.MainActivity"
+            />
+        <activity android:name=".activities.ResultActivity"
+                  android:parentActivityName=".activities.SearchActivity"/>
     </application>
 
 </manifest>

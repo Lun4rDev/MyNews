@@ -27,9 +27,7 @@ public interface ApiService {
     @GET("search/v2/articlesearch.json")
     Call<ApiResponse> articleSearch(
             @Query("q") String query,
-            @Query("fq") String filteredQuery,
             @Query("begin_date") String beginDate,
             @Query("end_date") String endDate,
-            @Query("sort") String sort,
-            @Query("page") Integer page);
+            @Query("fq") String sections);
 }

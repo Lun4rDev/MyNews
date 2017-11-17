@@ -4,9 +4,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Article {
 
-    public Result(String title, String date, String section){
+    public Article(String title, String date, String section){
         this.title = title;
         this.publishedDate = date;
         this.section = section;

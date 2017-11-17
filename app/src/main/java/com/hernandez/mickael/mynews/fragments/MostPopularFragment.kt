@@ -1,25 +1,19 @@
 package com.hernandez.mickael.mynews.fragments
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.support.v4.app.ListFragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
 import com.hernandez.mickael.mynews.R
-import com.hernandez.mickael.mynews.activities.MainActivity
 import com.hernandez.mickael.mynews.activities.WebViewActivity
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
 import com.hernandez.mickael.mynews.api.ApiServiceSingleton
 import com.hernandez.mickael.mynews.models.ApiResponse
-import com.hernandez.mickael.mynews.models.Result
+import com.hernandez.mickael.mynews.models.Article
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +28,7 @@ class MostPopularFragment : ListFragment() {
     val LOG_TAG = "DebugTag"
     private lateinit var mList : ListView
     private lateinit var mAdapter : ArticleViewAdapter
-    private var mArray : ArrayList<Result> = ArrayList()
+    private var mArray : ArrayList<Article> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
@@ -46,7 +40,7 @@ class MostPopularFragment : ListFragment() {
         apiService.mostPopular().enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>?, response: Response<ApiResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())
-                mArray.addAll(response?.body()?.results!!.asIterable())
+                mArray.addAll(response?.body()?.articles!!.asIterable())
                 Log.d("TABSIZE", mArray.size.toString())
                 mAdapter.notifyDataSetChanged()
             }

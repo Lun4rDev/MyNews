@@ -19,4 +19,7 @@
     <string name="text_empty">No results</string>
     <string name="search_query_terms">Search query term</string>
     <string name="enable_notifications_once_per_day">Enable notifications (once per day)</string>
+    <string name="begin_date">Begin Date</string>
+    <string name="end_date">End Date</string>
+    <string name="missing_parameters">There are missing parameters.</string>
 </resources>

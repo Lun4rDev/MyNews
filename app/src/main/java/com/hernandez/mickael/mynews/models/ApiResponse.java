@@ -18,7 +18,7 @@ public class ApiResponse {
     private Integer numResults;
     @SerializedName("results")
     @Expose
-    private ArrayList<Result> results = null;
+    private ArrayList<Article> mArticles = null;
 
     public String getStatus() {
         return status;
@@ -44,12 +44,12 @@ public class ApiResponse {
         this.numResults = numResults;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public List<Article> getArticles() {
+        return mArticles;
     }
 
-    public void setResults(ArrayList<Result> results) {
-        this.results = results;
+    public void setArticles(ArrayList<Article> articles) {
+        this.mArticles = articles;
     }
 
 }

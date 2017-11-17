@@ -38,7 +38,7 @@ class NotificationActivity : AppCompatActivity() {
         mSwitch.isChecked = mSharedPrefs.getBoolean(KEY_NOTIFICATION_STATE, false)
 
         // Switch check listener
-        mSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener(fun(btn : CompoundButton, state : Boolean) {
+        mSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener(fun(_: CompoundButton, state : Boolean) {
             mSharedPrefs.edit().putBoolean(KEY_NOTIFICATION_STATE, state).apply()
             // TODO : Set up notifications
         }))

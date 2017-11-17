@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
 import com.hernandez.mickael.mynews.fragments.MostPopularFragment
@@ -72,6 +74,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
+            R.id.action_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                return true
+            }
             R.id.action_nofitications -> {
                 startActivity(Intent(this, NotificationActivity::class.java))
                 return true
@@ -85,7 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
+        // Handle navigation drawer item clicks here.
         when (item.itemId) {
             R.id.nav_all -> {
                 // Handle the camera action

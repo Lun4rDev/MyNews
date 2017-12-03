@@ -1,12 +1,18 @@
 package com.hernandez.mickael.mynews.adapters
 
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.models.Article
+import com.squareup.picasso.Picasso
+import java.net.URL
 
 
 /**
@@ -43,10 +49,24 @@ open class ArticleViewAdapter(context: Context, resource: Int, list: ArrayList<A
 
     override fun getView(position: Int, originalView: View?, container: ViewGroup?): View {
         val convertView : View = originalView ?: LayoutInflater.from(context).inflate(R.layout.article_row, container, false)
-        convertView.findViewById<TextView>(R.id.section_text).text = getItem(position).section.toString()
-        convertView.findViewById<TextView>(R.id.title_text).text = getItem(position).title.toString()
-        convertView.findViewById<TextView>(R.id.date_text).text = getItem(position).publishedDate.toString().substring(0, 10)
-        //convertView.findViewById<ImageView>(R.id.article_img).setImageURI(Uri.parse(getItem(position).media[0].mediaMetadata[0].url))
+        val item = getItem(position)
+        val publishedDate = item.publishedDate.substring(8, 10) + "/" + item.publishedDate.substring(5, 7) + "/" + item.publishedDate.substring(0, 4)
+        var section = item.section
+        if(item.subsection != null && item.subsection != "") {
+            section += " > " + item.subsection
+        }
+        convertView.findViewById<TextView>(R.id.section_text).text = section
+        convertView.findViewById<TextView>(R.id.title_text).text = item.title.toString()
+        convertView.findViewById<TextView>(R.id.date_text).text = publishedDate
+
+        if(item.media != null && item.media is ArrayList && item.media.isNotEmpty()){
+                val url : String = if(item.media[0].url != null && item.media[0].url != ""){
+                    item.media[0].url
+                } else {
+                    item.media[0].mediaMetadata[0].url
+                }
+            Picasso.with(context).load(url).into(convertView.findViewById<ImageView>(R.id.article_img))
+        }
         return convertView
     }
 }

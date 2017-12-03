@@ -3,20 +3,17 @@ package com.hernandez.mickael.mynews.activities
 import android.app.ListActivity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import com.hernandez.mickael.mynews.R
-import com.hernandez.mickael.mynews.R.id.container
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
-import com.hernandez.mickael.mynews.api.ApiServiceSingleton
+import com.hernandez.mickael.mynews.api.ApiSingleton
 import com.hernandez.mickael.mynews.models.ApiResponse
 import com.hernandez.mickael.mynews.models.Article
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.zip.Inflater
 
 /**
  * Created by Mickael Hernandez on 17/11/2017.
@@ -39,7 +36,7 @@ class ResultActivity : ListActivity() {
             finish()
         }
 
-        ApiServiceSingleton.getInstance().articleSearch(values[0], values[1], values[2], values[3]).enqueue(object : Callback<ApiResponse> {
+        ApiSingleton.getInstance().articleSearch(values[0], values[1], values[2], values[3]).enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>?, t: Throwable?) {
                 Toast.makeText(applicationContext, "The research failed.", Toast.LENGTH_SHORT).show()
             }

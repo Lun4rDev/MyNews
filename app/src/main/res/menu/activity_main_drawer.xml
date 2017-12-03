@@ -3,10 +3,17 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+           android:id="@+id/nav_default">
         <item
-            android:id="@+id/nav_all"
-            android:title="@string/all_categories"/>
+            android:id="@+id/item_mostpopular"
+            android:title="@string/most_popular"/>
+        <item
+            android:id="@+id/item_topstories"
+            android:title="@string/top_stories"/>
     </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_sections" />
 
 </menu>

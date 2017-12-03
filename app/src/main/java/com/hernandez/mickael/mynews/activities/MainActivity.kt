@@ -1,21 +1,22 @@
 package com.hernandez.mickael.mynews.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
-import android.support.v4.app.FragmentActivity
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
+import com.hernandez.mickael.mynews.enums.Section
+import com.hernandez.mickael.mynews.enums.SectionSingleton
 import com.hernandez.mickael.mynews.fragments.MostPopularFragment
+import com.hernandez.mickael.mynews.fragments.SectionFragment
 import com.hernandez.mickael.mynews.fragments.TopStoriesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,25 +26,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val LOG_TAG = "DebugTag"
 
     private var mViewPagerAdapter : ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+    lateinit var mSharedPrefs : SharedPreferences
+    lateinit var navView : NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        // Shared preferences
+        mSharedPrefs = application.getSharedPreferences(getString(R.string.app_name), android.content.Context.MODE_PRIVATE)
+
 
         // UI elements
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager>(R.id.fragmentpager)
+        navView = findViewById(R.id.nav_view)
+        //val subMenu = navView.menu.ad
+
+        SectionSingleton.loadSections(applicationContext)
 
         // Setting viewpager adapter, linking to tab layout
         viewPager.adapter = mViewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
 
-        // Adding fragments
+        // Adding fragments for Most Popular and Top Stories
         mViewPagerAdapter.addFragment(MostPopularFragment(), getString(R.string.most_popular))
         mViewPagerAdapter.addFragment(TopStoriesFragment(), getString(R.string.top_stories))
+
+        // Adding fragment and menu row for each selected sections
+        for(s : String in SectionSingleton.sections){
+            val bundle = Bundle()
+            bundle.putString("section", s)
+            val sf = SectionFragment()
+            sf.arguments = bundle
+            mViewPagerAdapter.addFragment(sf, s)
+            navView.menu.add(R.id.nav_sections, 123, Menu.NONE, s)
+        }
+
         mViewPagerAdapter.notifyDataSetChanged()
+
         supportFragmentManager.beginTransaction().commit()
 
         // Drawer
@@ -93,8 +115,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation drawer item clicks here.
         when (item.itemId) {
-            R.id.nav_all -> {
-                // Handle the camera action
+            R.id.item_mostpopular -> {
+                tabLayout.getTabAt(0)?.select()
+            }
+            R.id.item_topstories -> {
+                tabLayout.getTabAt(1)?.select()
+            }
+            else -> {
+                (0..tabLayout.tabCount)
+                        .filter { tabLayout.getTabAt(it)?.text == item.title }
+                        .forEach { tabLayout.getTabAt(it)?.select() }
             }
         }
 

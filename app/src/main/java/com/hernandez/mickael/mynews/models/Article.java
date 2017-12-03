@@ -28,6 +28,10 @@ public class Article {
     @Expose
     private String section;
 
+    @SerializedName("subsection")
+    @Expose
+    private String subsection;
+
     @SerializedName("byline")
     @Expose
     private String byline;
@@ -78,11 +82,12 @@ public class Article {
 
     @SerializedName("geo_facet")
     @Expose
-    private List<String> geoFacet = null;
+    private List<String> geoFacet = null;*/
 
-    @SerializedName("media")
+    @SerializedName(value="media", alternate={"multimedia"})
     @Expose
-    private List<Medium> media = null;*/
+    private transient List<Medium> media = null;
+
 
     public String getUrl() {
         return url;
@@ -114,6 +119,14 @@ public class Article {
 
     public void setSection(String section) {
         this.section = section;
+    }
+
+    public String getSubsection() {
+        return subsection;
+    }
+
+    public void setSubsection(String subsection) {
+        this.subsection = subsection;
     }
 
     public String getByline() {
@@ -218,7 +231,7 @@ public class Article {
 
     public void setGeoFacet(List<String> geoFacet) {
         this.geoFacet = geoFacet;
-    }
+    }*/
 
     public List<Medium> getMedia() {
         return media;
@@ -226,6 +239,6 @@ public class Article {
 
     public void setMedia(List<Medium> media) {
         this.media = media;
-    }*/
+    }
 
 }

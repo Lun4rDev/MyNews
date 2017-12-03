@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment
@@ -30,6 +28,9 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public String getDate(){
+        if(date == null){
+            date = Calendar.getInstance();
+        }
         return format.format(date.getTime());
     }
 }

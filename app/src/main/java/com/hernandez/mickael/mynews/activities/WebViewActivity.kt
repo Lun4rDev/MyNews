@@ -21,13 +21,14 @@ class WebViewActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_webview)
         var url : String? = intent.extras.getString("url")
+        var title : String? = intent.extras.getString("title")
         if(url != "" && url != null) {
             webView = findViewById(R.id.webView)
             //webView.settings.javaScriptEnabled = true;
             webView.webViewClient = WebViewClient()
             webView.loadUrl(url)
         }
-        title = url
+        this.title = title
 	}
 
 }

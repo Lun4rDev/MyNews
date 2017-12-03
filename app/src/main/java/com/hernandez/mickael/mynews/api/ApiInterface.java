@@ -11,7 +11,7 @@ import retrofit2.http.Query;
  */
 
 /** NYTimes API interface */
-public interface ApiService {
+public interface ApiInterface {
 
     String API_KEY = "79267985f9cc49558b809254d951d64c";
     String API_BASE_URL = "https://api.nytimes.com/svc/";
@@ -30,4 +30,9 @@ public interface ApiService {
             @Query("begin_date") String beginDate,
             @Query("end_date") String endDate,
             @Query("fq") String sections);
+
+    @GET("search/v2/articlesearch.json")
+    Call<ApiResponse> section(
+            @Query("fq") String sections);
+
 }

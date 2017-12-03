@@ -18,7 +18,11 @@ private Integer height;
 @Expose
 private Integer width;
 
-public String getUrl() {
+    public MediaMetadatum(String value) {
+        this.url = value;
+    }
+
+    public String getUrl() {
 return url;
 }
 

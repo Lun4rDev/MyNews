@@ -6,13 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.*
 import com.hernandez.mickael.mynews.R
-import com.hernandez.mickael.mynews.api.ApiServiceSingleton
 import com.hernandez.mickael.mynews.fragments.DatePickerFragment
-import com.hernandez.mickael.mynews.models.ApiResponse
-import com.hernandez.mickael.mynews.models.Section
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.hernandez.mickael.mynews.enums.Section
+import com.hernandez.mickael.mynews.enums.SectionSingleton
+import android.app.DatePickerDialog
+import android.app.PendingIntent.getActivity
+import java.util.*
 
 
 /**
@@ -39,6 +38,12 @@ class SearchActivity : AppCompatActivity() {
             mCheckLayout.addView(cb)
         }
 
+        // Checking the checkboxes saved in shared preferences
+        for(section in SectionSingleton.sections){
+            val cb = mCheckLayout.getChildAt(Section.valueOf(section).id) as CheckBox
+            cb.isChecked = true
+        }
+
         // Search button click listener
         findViewById<Button>(R.id.search_button).setOnClickListener{
             var sections : String = "news_desk:("
@@ -54,6 +59,8 @@ class SearchActivity : AppCompatActivity() {
 
             if(textView.text.toString() != "" && sections != "" && beginFragment.date != "000" && endFragment.date != "000"){
                 // textView.text.toString(), beginFragment.date, endFragment.date, res
+
+                // Result activity intent
                 var intent = Intent(baseContext, ResultActivity::class.java)
                 val valArray = arrayOf<String>(textView.text.toString(), beginFragment.date, endFragment.date, sections)
                 intent.putExtra("values", valArray)

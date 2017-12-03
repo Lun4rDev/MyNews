@@ -17,6 +17,10 @@ public class Medium {
         this.mediaMetadata = medium;
     }
 
+    @SerializedName("url")
+    @Expose
+    private String url;
+
     @SerializedName("type")
     @Expose
     private String type;
@@ -32,10 +36,19 @@ public class Medium {
     @SerializedName("approved_for_syndication")
     @Expose
     private Integer approvedForSyndication;
+
     @SerializedName("media-metadata")
     @Expose
-    @JsonAdapter(MediumAdapterFactory.class)
+    //@JsonAdapter(MediumAdapterFactory.class)
     private List<MediaMetadatum> mediaMetadata = null;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getType() {
     return type;

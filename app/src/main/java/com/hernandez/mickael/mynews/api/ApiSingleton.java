@@ -4,8 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hernandez.mickael.mynews.models.Medium;
-import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
-import com.hernandez.mickael.mynews.utils.ResultsDeserializerJson;
+import com.hernandez.mickael.mynews.utils.ArticleDeserializerJson;
 
 import java.io.IOException;
 
@@ -22,15 +21,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by dw on 22/02/17.
  */
 
-public class ApiServiceSingleton {
+public class ApiSingleton {
 
-    private static ApiService mInstance = null;
+    private static ApiInterface mInstance = null;
 
-    private ApiServiceSingleton() {};
+    private ApiSingleton() {};
 
-    public static ApiService getInstance() {
+    public static ApiInterface getInstance() {
         if (mInstance == null) {
-            mInstance = getRetrofit().create(ApiService.class);
+            mInstance = getRetrofit().create(ApiInterface.class);
         }
         return mInstance;
     }
@@ -40,8 +39,9 @@ public class ApiServiceSingleton {
         // Customise Gson instance
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                //.registerTypeAdapter(Medium.class, new ResultsDeserializerJson())
-                .registerTypeAdapterFactory(new MediumAdapterFactory())
+                //.registerTypeAdapter(Medium.class, new ArticleDeserializerJson())
+                //.registerTypeAdapterFactory(new MediumAdapterFactory())
+                //.registerTypeAdapter(Medium.class, new MediumTypeAdapter())
                 .create();
 
         // Debug interceptor
@@ -53,7 +53,7 @@ public class ApiServiceSingleton {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                HttpUrl url = request.url().newBuilder().addQueryParameter("api-key", ApiService.API_KEY).build();
+                HttpUrl url = request.url().newBuilder().addQueryParameter("api-key", ApiInterface.API_KEY).build();
                 request = request.newBuilder().url(url).build();
                 return chain.proceed(request);
             }
@@ -66,7 +66,7 @@ public class ApiServiceSingleton {
 
         // Create Retrofit instance
         return new Retrofit.Builder()
-                .baseUrl(ApiService.API_BASE_URL)
+                .baseUrl(ApiInterface.API_BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

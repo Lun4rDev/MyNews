@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="15dp">
 
     <EditText
         android:id="@+id/search_query"
@@ -36,7 +37,6 @@
             android:hint="@string/end_date"
             android:tag="end"/>
     </LinearLayout>
-
     <GridLayout
         android:id="@+id/search_checkboxes"
         android:layout_width="match_parent"

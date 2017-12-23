@@ -20,6 +20,10 @@ import android.app.PendingIntent.getActivity
 import android.content.Intent
 import com.hernandez.mickael.mynews.receiver.AlarmReceiver
 import java.util.*
+import android.view.ViewGroup
+import android.widget.LinearLayout
+
+
 
 
 /**
@@ -84,8 +88,10 @@ class NotificationActivity : AppCompatActivity() {
             cb.text = section.name
             cb.tag = section.id
             cb.setOnCheckedChangeListener(listener)
-            // TODO : set gridlayout column size
-            mCheckLayout.addView(cb)
+            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val m = 25
+            params.setMargins(m, m, m, m)
+            mCheckLayout.addView(cb, params)
         }
 
         // Checking the checkboxes saved in shared preferences

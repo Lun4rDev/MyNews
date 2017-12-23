@@ -40,7 +40,6 @@ open class DocViewAdapter(context: Context, resource: Int, list: ArrayList<Doc>)
                 item.multimedia[0].mediaMetadata[0].url
             }*/
 
-            Log.d("item.multimedia[0].url", item.multimedia[0].url)
             Picasso.with(context).load(item.multimedia[0].url).into(convertView.findViewById<ImageView>(R.id.article_img))
         }
         return convertView

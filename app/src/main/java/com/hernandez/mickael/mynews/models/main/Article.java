@@ -70,7 +70,7 @@ public class Article {
 
     @SerializedName(value="media", alternate="multimedia")
     @Expose
-    private transient List<Medium> media = null;
+    private List<Medium> media = null;
 
 
     public String getUrl() {

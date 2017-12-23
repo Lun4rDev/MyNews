@@ -7,14 +7,9 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.google.gson.stream.MalformedJsonException;
-import com.hernandez.mickael.mynews.models.Medium;
+import com.hernandez.mickael.mynews.models.main.Medium;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MediumAdapterFactory implements TypeAdapterFactory {
 
@@ -24,15 +19,15 @@ public class MediumAdapterFactory implements TypeAdapterFactory {
         if (type.getRawType()!= Medium.class) return null;
 
         TypeAdapter<Medium> defaultAdapter = (TypeAdapter<Medium>) gson.getDelegateAdapter(this, type);
-        return (TypeAdapter<T>) new MediumObjectAdapter(defaultAdapter);
+        return (TypeAdapter<T>) new MediumAdapter(defaultAdapter);
     }
 
-    public class MediumObjectAdapter extends TypeAdapter<Medium> {
+    public class MediumAdapter extends TypeAdapter<Medium> {
 
         protected TypeAdapter<Medium> defaultAdapter;
 
 
-        public MediumObjectAdapter(TypeAdapter<Medium> defaultAdapter) {
+        public MediumAdapter(TypeAdapter<Medium> defaultAdapter) {
             this.defaultAdapter = defaultAdapter;
         }
 

@@ -1,24 +1,23 @@
-package com.hernandez.mickael.mynews.models;
+package com.hernandez.mickael.mynews.models.main;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ApiResponse {
+/** Class used to parse Most Popular and Top Stories API Json response */
+public class MainResponse {
 
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("copyright")
-    @Expose
-    private String copyright;
     @SerializedName("num_results")
     @Expose
     private Integer numResults;
-    @SerializedName("results")
+    @SerializedName(value="results")
     @Expose
     private ArrayList<Article> mArticles = null;
+
 
     public String getStatus() {
         return status;
@@ -26,14 +25,6 @@ public class ApiResponse {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getCopyright() {
-        return copyright;
-    }
-
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
     }
 
     public Integer getNumResults() {

@@ -1,6 +1,7 @@
 package com.hernandez.mickael.mynews.api;
 
-import com.hernandez.mickael.mynews.models.ApiResponse;
+import com.hernandez.mickael.mynews.models.main.MainResponse;
+import com.hernandez.mickael.mynews.models.search.SearchResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,21 +19,21 @@ public interface ApiInterface {
     String API_IMAGE_BASE_URL = "http://www.nytimes.com/";
 
     @GET("mostpopular/v2/mostviewed/all-sections/1.json")
-    Call<ApiResponse> mostPopular();
+    Call<MainResponse> mostPopular();
 
     @GET("topstories/v2/world.json")
-    Call<ApiResponse> topStories();
+    Call<MainResponse> topStories();
 
     // Date format is YYYYMMDD
     @GET("search/v2/articlesearch.json")
-    Call<ApiResponse> articleSearch(
+    Call<SearchResponse> articleSearch(
             @Query("q") String query,
             @Query("begin_date") String beginDate,
             @Query("end_date") String endDate,
             @Query("fq") String sections);
 
     @GET("search/v2/articlesearch.json")
-    Call<ApiResponse> section(
+    Call<SearchResponse> section(
             @Query("fq") String sections);
 
 }

@@ -1,11 +1,10 @@
-package com.hernandez.mickael.mynews.models;
+package com.hernandez.mickael.mynews.models.main;
 
 import java.util.Collections;
 import java.util.List;
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
+import com.hernandez.mickael.mynews.models.main.MediaMetadatum;
 
 public class Medium {
 

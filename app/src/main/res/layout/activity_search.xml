@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/begin_date"
-            android:onClick="showBeginDatePickerDialog"/>
+            android:tag="begin"/>
 
         <TextView
             android:id="@+id/search_end_date"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/end_date"
-            android:onClick="showEndDatePickerDialog"/>
+            android:tag="end"/>
     </LinearLayout>
 
     <GridLayout

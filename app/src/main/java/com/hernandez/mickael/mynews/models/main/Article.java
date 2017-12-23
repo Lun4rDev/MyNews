@@ -1,4 +1,4 @@
-package com.hernandez.mickael.mynews.models;
+package com.hernandez.mickael.mynews.models.main;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -12,29 +12,17 @@ public class Article {
         this.section = section;
     }
 
-    @SerializedName("url")
+    @SerializedName(value="url", alternate="web_url")
     @Expose
     private String url;
 
-    @SerializedName("adx_keywords")
-    @Expose
-    private String adxKeywords;
-
-    @SerializedName("column")
-    @Expose
-    private Object column;
-
-    @SerializedName("section")
+    @SerializedName(value="section", alternate="section_name")
     @Expose
     private String section;
 
-    @SerializedName("subsection")
+    @SerializedName(value="subsection", alternate="subsection_name")
     @Expose
     private String subsection;
-
-    @SerializedName("byline")
-    @Expose
-    private String byline;
 
     @SerializedName("type")
     @Expose
@@ -44,10 +32,6 @@ public class Article {
     @Expose
     private String title;
 
-    @SerializedName("abstract")
-    @Expose
-    private String _abstract;
-
     @SerializedName("published_date")
     @Expose
     private String publishedDate;
@@ -56,7 +40,7 @@ public class Article {
     @Expose
     private String source;
 
-    @SerializedName("id")
+    /*@SerializedName("id")
     @Expose
     private Long id;
 
@@ -68,7 +52,7 @@ public class Article {
     @Expose
     private Integer views;
 
-    /*@SerializedName("des_facet")
+    @SerializedName("des_facet")
     @Expose
     private List<String> desFacet = null;
 
@@ -84,7 +68,7 @@ public class Article {
     @Expose
     private List<String> geoFacet = null;*/
 
-    @SerializedName(value="media", alternate={"multimedia"})
+    @SerializedName(value="media", alternate="multimedia")
     @Expose
     private transient List<Medium> media = null;
 
@@ -95,22 +79,6 @@ public class Article {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getAdxKeywords() {
-        return adxKeywords;
-    }
-
-    public void setAdxKeywords(String adxKeywords) {
-        this.adxKeywords = adxKeywords;
-    }
-
-    public Object getColumn() {
-        return column;
-    }
-
-    public void setColumn(Object column) {
-        this.column = column;
     }
 
     public String getSection() {
@@ -129,14 +97,6 @@ public class Article {
         this.subsection = subsection;
     }
 
-    public String getByline() {
-        return byline;
-    }
-
-    public void setByline(String byline) {
-        this.byline = byline;
-    }
-
     public String getType() {
         return type;
     }
@@ -151,14 +111,6 @@ public class Article {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAbstract() {
-        return _abstract;
-    }
-
-    public void setAbstract(String _abstract) {
-        this._abstract = _abstract;
     }
 
     public String getPublishedDate() {
@@ -177,7 +129,7 @@ public class Article {
         this.source = source;
     }
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -201,7 +153,7 @@ public class Article {
         this.views = views;
     }
 
-    /*public List<String> getDesFacet() {
+    public List<String> getDesFacet() {
         return desFacet;
     }
 

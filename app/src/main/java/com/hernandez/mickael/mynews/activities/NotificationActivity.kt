@@ -2,6 +2,7 @@ package com.hernandez.mickael.mynews.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.CheckBox
 import android.widget.CompoundButton
@@ -10,6 +11,16 @@ import android.widget.Switch
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.enums.Section
 import com.hernandez.mickael.mynews.enums.SectionSingleton
+import android.content.Context.NOTIFICATION_SERVICE
+import android.app.NotificationManager
+import android.content.Context
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.app.PendingIntent.getActivity
+import android.content.Intent
+import com.hernandez.mickael.mynews.receiver.AlarmReceiver
+import java.util.*
+
 
 /**
  * Created by Mickael Hernandez on 12/11/2017.
@@ -21,6 +32,8 @@ class NotificationActivity : AppCompatActivity() {
     lateinit var mCheckLayout : GridLayout
     var arrayName = "sections"
     var array = BooleanArray(6)
+    lateinit var alarms : AlarmManager
+    lateinit var recurringNotif : PendingIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +46,26 @@ class NotificationActivity : AppCompatActivity() {
         // Shared preferences
         mSharedPrefs = application.getSharedPreferences(getString(R.string.app_name), android.content.Context.MODE_PRIVATE)
 
+        // Get instance of AlarmManager
+        alarms = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         // Set switch state according to shared preferences
         mSwitch.isChecked = SectionSingleton.state
 
+        // Creates pending intent for notification if enabled
+        if(mSwitch.isChecked) setRecurringAlarm(this)
+
         // Switch check listener
         mSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener(fun(_: CompoundButton, state : Boolean) {
+
             SectionSingleton.state = state
             SectionSingleton.saveSections(applicationContext)
-            // TODO : Set up notifications
+            if(state){
+                setRecurringAlarm(this)
+                //mNotificationManager.notify(0, mBuilder.build())
+            } else {
+                alarms.cancel(recurringNotif)
+            }
         }))
         //SectionSingleton.loadSections(applicationContext)
         //SectionSingleton.loadSections(applicationContext)
@@ -68,5 +93,22 @@ class NotificationActivity : AppCompatActivity() {
             val cb = mCheckLayout.getChildAt(Section.valueOf(section).id) as CheckBox
             cb.isChecked = true
         }
+    }
+
+    private fun setRecurringAlarm(context: Context) {
+
+        // we know mobiletuts updates at right around 1130 GMT.
+        // let's grab new stuff at around 11:45 GMT, inexactly
+        val updateTime = Calendar.getInstance()
+        updateTime.timeZone = TimeZone.getTimeZone("GMT")
+        updateTime.set(Calendar.HOUR_OF_DAY, 11)
+        updateTime.set(Calendar.MINUTE, 45)
+
+        val intent = Intent(context, AlarmReceiver::class.java)
+        recurringNotif = PendingIntent.getBroadcast(context,
+                0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                updateTime.timeInMillis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringNotif)
     }
 }

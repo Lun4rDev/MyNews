@@ -16,16 +16,14 @@ import android.widget.Toast
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.activities.WebViewActivity
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
+import com.hernandez.mickael.mynews.adapters.DocViewAdapter
 import com.hernandez.mickael.mynews.api.ApiSingleton
-import com.hernandez.mickael.mynews.enums.Section
-import com.hernandez.mickael.mynews.models.ApiResponse
-import com.hernandez.mickael.mynews.models.Article
-import com.hernandez.mickael.mynews.models.Medium
+import com.hernandez.mickael.mynews.models.main.Article
+import com.hernandez.mickael.mynews.models.search.Doc
+import com.hernandez.mickael.mynews.models.search.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -36,29 +34,29 @@ class SectionFragment : ListFragment(), AdapterView.OnItemLongClickListener {
     val LOG_TAG = "DebugTag"
     private lateinit var mSection : String
     private lateinit var mList : ListView
-    private lateinit var mAdapter : ArticleViewAdapter
-    private var mArray : ArrayList<Article> = ArrayList()
+    private lateinit var mAdapter : DocViewAdapter
+    private var mArray : ArrayList<Doc> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
         mSection = this.arguments.getString("section")
         mList = view.findViewById(android.R.id.list)
-        mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
+        mAdapter = DocViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
 
         val apiService = ApiSingleton.getInstance()
-        apiService.section(mSection).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>?, response: Response<ApiResponse>?) {
-                //Log.d(LOG_TAG, response?.errorBody().toString())
-                if(response?.body()?.articles != null){
-                    mArray.addAll(response.body()?.articles!!.asIterable())
+        apiService.section(mSection).enqueue(object : Callback<SearchResponse> {
+            override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
+                Log.d(LOG_TAG, response?.errorBody().toString())
+                if(response?.body()?.searchSubResponse?.docs != null){
+                    mArray.addAll(response?.body()?.searchSubResponse!!.docs.asIterable())
                 }
 
                 Log.d("TABSIZE", mArray.size.toString())
                 mAdapter.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<ApiResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<SearchResponse>?, t: Throwable?) {
                 Log.d(LOG_TAG, "MOSTPOPULAR API CALL FAILED : ")
                 t?.printStackTrace()
             }
@@ -71,14 +69,14 @@ class SectionFragment : ListFragment(), AdapterView.OnItemLongClickListener {
         Log.d(LOG_TAG, "ONLISTITEMCLICKTRIGGERED")
         super.onListItemClick(l, v, position, id)
         val intent = Intent(activity, WebViewActivity::class.java)
-        intent.putExtra("url", mArray[position].url)
-        intent.putExtra("title", mArray[position].title)
+        intent.putExtra("url", mArray[position].webUrl)
+        intent.putExtra("title", mArray[position].headline.main)
         startActivity(intent)
     }
 
     override fun onItemLongClick(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long): Boolean {
         val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("url", mArray[pos].url)
+        val clip = ClipData.newPlainText("url", mArray[pos].webUrl)
         clipboard.primaryClip = clip
         Toast.makeText(context, "Article url copied into clipboard.", Toast.LENGTH_SHORT).show()
         return true

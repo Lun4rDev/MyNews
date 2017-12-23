@@ -17,11 +17,13 @@
 
     <GridLayout
         android:id="@+id/notif_checkboxes"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
     </GridLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"

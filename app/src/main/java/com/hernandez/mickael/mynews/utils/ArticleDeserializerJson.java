@@ -7,9 +7,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
-import com.hernandez.mickael.mynews.models.Article;
-import com.hernandez.mickael.mynews.models.Medium;
+import com.hernandez.mickael.mynews.models.main.Article;
+import com.hernandez.mickael.mynews.models.main.Medium;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

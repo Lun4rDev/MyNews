@@ -3,19 +3,12 @@ package com.hernandez.mickael.mynews.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.hernandez.mickael.mynews.models.MediaMetadatum;
-import com.hernandez.mickael.mynews.models.Medium;
+import com.hernandez.mickael.mynews.models.main.Medium;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Mickael Hernandez on 15/11/2017.

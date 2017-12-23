@@ -17,9 +17,8 @@ import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.activities.WebViewActivity
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
 import com.hernandez.mickael.mynews.api.ApiSingleton
-import com.hernandez.mickael.mynews.models.ApiResponse
-import com.hernandez.mickael.mynews.models.Article
-import com.hernandez.mickael.mynews.models.Medium
+import com.hernandez.mickael.mynews.models.main.MainResponse
+import com.hernandez.mickael.mynews.models.main.Article
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +42,8 @@ class MostPopularFragment : ListFragment(), AdapterView.OnItemLongClickListener 
         mList.adapter = mAdapter
 
         val apiService = ApiSingleton.getInstance()
-        apiService.mostPopular().enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>?, response: Response<ApiResponse>?) {
+        apiService.mostPopular().enqueue(object : Callback<MainResponse> {
+            override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())
                 mArray.addAll(response?.body()?.articles!!.asIterable())
 
@@ -52,7 +51,7 @@ class MostPopularFragment : ListFragment(), AdapterView.OnItemLongClickListener 
                 mAdapter.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<ApiResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<MainResponse>?, t: Throwable?) {
                 Log.d(LOG_TAG, "MOSTPOPULAR API CALL FAILED : ")
                 t?.printStackTrace()
             }

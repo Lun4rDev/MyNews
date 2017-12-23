@@ -3,8 +3,7 @@ package com.hernandez.mickael.mynews.api;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hernandez.mickael.mynews.models.Medium;
-import com.hernandez.mickael.mynews.utils.ArticleDeserializerJson;
+import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
 
 import java.io.IOException;
 
@@ -40,7 +39,7 @@ public class ApiSingleton {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 //.registerTypeAdapter(Medium.class, new ArticleDeserializerJson())
-                //.registerTypeAdapterFactory(new MediumAdapterFactory())
+                .registerTypeAdapterFactory(new MediumAdapterFactory())
                 //.registerTypeAdapter(Medium.class, new MediumTypeAdapter())
                 .create();
 
@@ -60,8 +59,8 @@ public class ApiSingleton {
         };
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)  // Enable debugging
                 .addInterceptor(apiKeyInterceptor)
+                .addInterceptor(interceptor)  // Enable debugging
                 .build();
 
         // Create Retrofit instance

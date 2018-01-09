@@ -32,10 +32,18 @@ import java.util.*
  */
 class SectionFragment : ListFragment(), AdapterView.OnItemLongClickListener {
     val LOG_TAG = "DebugTag"
+
+    /** Section name */
     private lateinit var mSection : String
-    private lateinit var mList : ListView
-    private lateinit var mAdapter : DocViewAdapter
+
+    /** ArrayList of articles */
     private var mArray : ArrayList<Doc> = ArrayList()
+
+    /** ListView from the layout */
+    private lateinit var mList : ListView
+
+    /** Adapter between ArrayList and ListView */
+    private lateinit var mAdapter : DocViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
@@ -49,7 +57,7 @@ class SectionFragment : ListFragment(), AdapterView.OnItemLongClickListener {
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
                 Log.d(LOG_TAG, response?.errorBody().toString())
                 if(response?.body()?.searchSubResponse?.docs != null){
-                    mArray.addAll(response?.body()?.searchSubResponse!!.docs.asIterable())
+                    mArray.addAll(response.body()?.searchSubResponse!!.docs.asIterable())
                 }
 
                 Log.d("TABSIZE", mArray.size.toString())

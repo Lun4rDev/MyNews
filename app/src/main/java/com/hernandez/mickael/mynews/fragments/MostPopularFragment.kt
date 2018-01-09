@@ -31,9 +31,15 @@ import retrofit2.Response
  */
 class MostPopularFragment : ListFragment(), AdapterView.OnItemLongClickListener {
     val LOG_TAG = "DebugTag"
-    private lateinit var mList : ListView
-    private lateinit var mAdapter : ArticleViewAdapter
+
+    /** ArrayList of articles */
     private var mArray : ArrayList<Article> = ArrayList()
+
+    /** ListView from the layout */
+    private lateinit var mList : ListView
+
+    /** Adapter between ArrayList and ListView */
+    private lateinit var mAdapter : ArticleViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
@@ -60,6 +66,7 @@ class MostPopularFragment : ListFragment(), AdapterView.OnItemLongClickListener 
         return view
     }
 
+    /** Listens to the click on items */
     override fun onListItemClick(l: ListView?, v: View?, position: Int, id: Long) {
         Log.d(LOG_TAG, "ONLISTITEMCLICKTRIGGERED")
         super.onListItemClick(l, v, position, id)

@@ -3,6 +3,8 @@ package com.hernandez.mickael.mynews.api;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hernandez.mickael.mynews.models.main.Article;
+import com.hernandez.mickael.mynews.utils.ArticleDeserializerJson;
 import com.hernandez.mickael.mynews.utils.MediumAdapterFactory;
 
 import java.io.IOException;
@@ -22,24 +24,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiSingleton {
 
+    /** ApiInterface instance */
     private static ApiInterface mInstance = null;
 
-    private ApiSingleton() {};
+    //private ApiSingleton(){}
 
+    /** Returns the ApiInterface instance */
     public static ApiInterface getInstance() {
+        // instantiate the object if not done already
         if (mInstance == null) {
             mInstance = getRetrofit().create(ApiInterface.class);
         }
         return mInstance;
     }
 
+    /** Returns new Retrofit object */
     private static Retrofit getRetrofit() {
-
         // Customise Gson instance
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                //.registerTypeAdapter(Medium.class, new ArticleDeserializerJson())
-                .registerTypeAdapterFactory(new MediumAdapterFactory())
+                //.registerTypeAdapter(Article.class, new ArticleDeserializerJson())
+                //.registerTypeAdapterFactory(new MediumAdapterFactory())
                 //.registerTypeAdapter(Medium.class, new MediumTypeAdapter())
                 .create();
 

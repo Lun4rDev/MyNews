@@ -30,17 +30,22 @@ import android.widget.Toast
 class TopStoriesFragment : ListFragment(), AdapterView.OnItemLongClickListener {
     val LOG_TAG = "DebugTag"
 
-
-    private lateinit var mList : ListView
-    private lateinit var mAdapter : ArticleViewAdapter
+    /** ArrayList of articles */
     private var mArray : ArrayList<Article> = ArrayList()
+
+    /** ListView from the layout */
+    private lateinit var mList : ListView
+
+    /** Adapter between ArrayList and ListView */
+    private lateinit var mAdapter : ArticleViewAdapter
+
+    /**  */
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
         mList = view.findViewById(android.R.id.list)
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
         val apiService = ApiSingleton.getInstance()
-
         apiService.topStories().enqueue(object : Callback<MainResponse> {
             override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())

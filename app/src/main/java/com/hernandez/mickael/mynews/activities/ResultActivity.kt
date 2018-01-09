@@ -41,8 +41,7 @@ class ResultActivity : AppCompatActivity() {
 
         title = values[0]
 
-        mList.onItemClickListener = AdapterView.OnItemClickListener{ l: AdapterView<*>, v: View, pos: Int, id: Long ->
-            //super.onListItemClick(l, v, position, id)
+        mList.onItemClickListener = AdapterView.OnItemClickListener{ _: AdapterView<*>, _: View, pos: Int, _: Long ->
             val intent = Intent(applicationContext, WebViewActivity::class.java)
             intent.putExtra("url", mArray[pos].webUrl)
             intent.putExtra("title", mArray[pos].headline.main)
@@ -55,7 +54,6 @@ class ResultActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
-                var res = response?.body()?.searchSubResponse?.docs
                 //if(res != null){
                     mArray.addAll(response?.body()?.searchSubResponse?.docs!!.asIterable())
                     mAdapter.notifyDataSetChanged()

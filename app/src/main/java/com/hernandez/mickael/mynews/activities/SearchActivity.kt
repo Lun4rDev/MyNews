@@ -22,25 +22,38 @@ import java.util.*
  * Created by Mickael Hernandez on 16/11/2017.
  */
 class SearchActivity : AppCompatActivity() {
+    /** Cusstom date format for display */
     var displayFormat = SimpleDateFormat("dd/MM/yyyy")
+
+    /** Cusstom date format for api */
     var apiFormat = SimpleDateFormat("yyyyMMdd")
 
+    /** checkboxes layout */
     lateinit var mCheckLayout : GridLayout
 
+    /** begin date textView */
     lateinit var beginText : TextView
+
+    /** end date textView */
     lateinit var endText : TextView
 
-    var beginDate = GregorianCalendar(1851, 9, 18) // first NYT publication
+    /** begin date initialized as first NYT publication */
+    var beginDate = GregorianCalendar(1851, 9, 18)
+
+    /** end date initialized as today*/
     var endDate = Calendar.getInstance() // Today
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        mCheckLayout = findViewById(R.id.search_checkboxes)
 
-        val textView = findViewById<TextView>(R.id.search_query)
+        // Initializing class members
+        mCheckLayout = findViewById(R.id.search_checkboxes)
         beginText = findViewById(R.id.search_begin_date)
         endText = findViewById(R.id.search_end_date)
+
+        // Search query field
+        val textView = findViewById<EditText>(R.id.search_query)
 
         // Filling the checkbox layout
         for(section in Section.values()){
@@ -56,8 +69,9 @@ class SearchActivity : AppCompatActivity() {
             cb.isChecked = true
         }
 
-        var listener = OnClickListener { view: View ->
-
+        // Begin and end textViews click listener
+        val listener = OnClickListener { view: View ->
+            // Create date picker dialog
                 val mDatePicker = DatePickerDialog(view.context,
                         OnDateSetListener { datepicker, year, month, day ->
                             // TODO Auto-generated method stub
@@ -78,15 +92,15 @@ class SearchActivity : AppCompatActivity() {
                 } else {
                     mDatePicker.datePicker.tag = "end"
                 }
-                mDatePicker.setTitle("Select date")
-                mDatePicker.show()
+                mDatePicker.setTitle("Select date") // set picker title
+                mDatePicker.show() // show picker
         }
         beginText.setOnClickListener(listener)
         endText.setOnClickListener(listener)
 
         // Search button click listener
         findViewById<Button>(R.id.search_button).setOnClickListener{
-            var sections : String = "news_desk:("
+            var sections = "news_desk:("
             for(i in 0..mCheckLayout.childCount) {
                 if(mCheckLayout.getChildAt(i) != null){
                     val cb = mCheckLayout.getChildAt(i) as CheckBox
@@ -96,9 +110,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
             sections += ")"
-            if(textView.text.toString() != "" && sections != ""){
-                // textView.text.toString(), beginFragment.date, endFragment.date, res
-
+            if(textView.text.toString() != "" && sections != "news_desk:()"){
                 // Result activity intent
                 var intent = Intent(baseContext, ResultActivity::class.java)
                 val valArray = arrayOf<String>(textView.text.toString(), apiFormat.format(beginDate.timeInMillis), apiFormat.format(endDate.timeInMillis), sections)

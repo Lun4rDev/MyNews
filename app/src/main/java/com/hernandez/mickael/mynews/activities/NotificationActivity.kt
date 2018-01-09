@@ -1,29 +1,19 @@
 package com.hernandez.mickael.mynews.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.GridLayout
-import android.widget.Switch
+import android.view.ViewGroup
+import android.widget.*
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.enums.Section
 import com.hernandez.mickael.mynews.enums.SectionSingleton
-import android.content.Context.NOTIFICATION_SERVICE
-import android.app.NotificationManager
-import android.content.Context
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.PendingIntent.getActivity
-import android.content.Intent
 import com.hernandez.mickael.mynews.receiver.AlarmReceiver
 import java.util.*
-import android.view.ViewGroup
-import android.widget.LinearLayout
-
-
 
 
 /**
@@ -34,8 +24,6 @@ class NotificationActivity : AppCompatActivity() {
     lateinit var mSharedPrefs : SharedPreferences
     lateinit var mSwitch : Switch
     lateinit var mCheckLayout : GridLayout
-    var arrayName = "sections"
-    var array = BooleanArray(6)
     lateinit var alarms : AlarmManager
     lateinit var recurringNotif : PendingIntent
 
@@ -71,8 +59,7 @@ class NotificationActivity : AppCompatActivity() {
                 alarms.cancel(recurringNotif)
             }
         }))
-        //SectionSingleton.loadSections(applicationContext)
-        //SectionSingleton.loadSections(applicationContext)
+        //SectionSingleton.loadSections(applicationContext)*
 
         // Checkboxes listener
         val listener = CompoundButton.OnCheckedChangeListener{ compoundButton: CompoundButton, b: Boolean ->
@@ -84,7 +71,7 @@ class NotificationActivity : AppCompatActivity() {
         }
         // Adding a checkbox for each section
         for(section in Section.values()){
-            var cb = CheckBox(applicationContext)
+            val cb = CheckBox(applicationContext)
             cb.text = section.name
             cb.tag = section.id
             cb.setOnCheckedChangeListener(listener)
@@ -102,9 +89,6 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun setRecurringAlarm(context: Context) {
-
-        // we know mobiletuts updates at right around 1130 GMT.
-        // let's grab new stuff at around 11:45 GMT, inexactly
         val updateTime = Calendar.getInstance()
         updateTime.timeZone = TimeZone.getTimeZone("GMT")
         updateTime.set(Calendar.HOUR_OF_DAY, 11)

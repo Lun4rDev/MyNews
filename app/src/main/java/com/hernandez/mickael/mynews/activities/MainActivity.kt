@@ -20,23 +20,24 @@ import com.hernandez.mickael.mynews.fragments.SectionFragment
 import com.hernandez.mickael.mynews.fragments.TopStoriesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+/** Main activity of the application */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    val LOG_TAG = "DebugTag"
-
+    /** ViewPagerAdapter used to manage the fragments */
     private var mViewPagerAdapter : ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-    lateinit var mSharedPrefs : SharedPreferences
+
+    /** Navigation drawer */
     lateinit var navView : NavigationView
 
+    /** On object creation */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inflates the activity layout
         setContentView(R.layout.activity_main)
+
+        // Sets the toolbar
         setSupportActionBar(toolbar)
-
-        // Shared preferences
-        mSharedPrefs = application.getSharedPreferences(getString(R.string.app_name), android.content.Context.MODE_PRIVATE)
-
 
         // UI elements
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
@@ -64,11 +65,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navView.menu.add(R.id.nav_sections, 123, Menu.NONE, s)
         }
 
+        // Notifying the adapter that the data changed
         mViewPagerAdapter.notifyDataSetChanged()
 
-        supportFragmentManager.beginTransaction().commit()
+        //supportFragmentManager.beginTransaction().commit()
 
-        // Drawer
+        // Drawer configuration
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    /** When back button is pressed */
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
@@ -84,50 +87,54 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    /** Inflates the menu - this adds items to the action bar if it is present */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
-    /** Handle action bar item clicks */
+    /** Handles clicks on item in the toolbar */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
+            // Search
             R.id.action_search -> {
                 startActivity(Intent(this, SearchActivity::class.java))
                 return true
             }
-            R.id.action_nofitications -> {
+            // Notification
+            R.id.action_notifications -> {
                 startActivity(Intent(this, NotificationActivity::class.java))
                 return true
             }
+            // Help
             R.id.action_help -> return true
+            // About
             R.id.action_about -> return true
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
 
-
+    /** Handles clicks on the drawer menu */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation drawer item clicks here.
         when (item.itemId) {
+            // Most Popular
             R.id.item_mostpopular -> {
                 tabLayout.getTabAt(0)?.select()
             }
+            // Top Stories
             R.id.item_topstories -> {
                 tabLayout.getTabAt(1)?.select()
             }
+            // If a number between 0 and tabCount
             else -> {
                 (0..tabLayout.tabCount)
+                        // finds the tab with the corresponding title
                         .filter { tabLayout.getTabAt(it)?.text == item.title }
                         .forEach { tabLayout.getTabAt(it)?.select() }
             }
         }
-
+        // Close the drawer
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

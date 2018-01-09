@@ -62,7 +62,9 @@ open class ArticleViewAdapter(context: Context, resource: Int, list: ArrayList<A
                 } else {
                     item.media[0].mediaMetadata[0].url
                 }
-            Picasso.with(context).load(url).into(convertView.findViewById<ImageView>(R.id.article_img))
+            if(url != ""){
+                Picasso.with(context).load(url).into(convertView.findViewById<ImageView>(R.id.article_img))
+            }
         }
         return convertView
     }

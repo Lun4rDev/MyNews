@@ -15,10 +15,8 @@ import android.widget.ListView
 import android.widget.Toast
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.activities.WebViewActivity
-import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
 import com.hernandez.mickael.mynews.adapters.DocViewAdapter
 import com.hernandez.mickael.mynews.api.ApiSingleton
-import com.hernandez.mickael.mynews.models.main.Article
 import com.hernandez.mickael.mynews.models.search.Doc
 import com.hernandez.mickael.mynews.models.search.SearchResponse
 import retrofit2.Call
@@ -46,7 +44,7 @@ class SectionFragment : ListFragment(), AdapterView.OnItemLongClickListener {
     private lateinit var mAdapter : DocViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_list, container, false)
         mSection = this.arguments.getString("section")
         mList = view.findViewById(android.R.id.list)
         mAdapter = DocViewAdapter(context, R.layout.article_row, mArray)

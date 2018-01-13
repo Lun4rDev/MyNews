@@ -11,14 +11,18 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import com.hernandez.mickael.mynews.R
 import kotlinx.android.synthetic.main.activity_main.*
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.anything
 import org.junit.After
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.Espresso.onData
+import android.widget.ListView
+import com.hernandez.mickael.mynews.models.main.Article
+import org.hamcrest.CoreMatchers.*
+
 
 /**
  * Created by Mickael Hernandez on 08/01/2018.
@@ -37,15 +41,22 @@ class MainActivityTest {
         mActivity = mActivityTestRule.activity
     }
 
+    /** Finishes the activity  */
+    @After
+    @Throws(Exception::class)
+    fun tearDown() {
+        mActivity.finish()
+    }
+
+
     /** Tests that the tab lists are not empty, hence that both api call and gson conversion are ok */
     @Test
     fun articles(){
         onData(anything())
-                .inAdapterView(allOf(withId(android.R.id.list), isDisplayed()))
+                .inAdapterView(allOf(withId(android.R.id.list), isClickable()))
                 .atPosition(0).perform(click())
         //onView(allOf(withId(android.R.id.list))).perform(click())
     }
-
 
     /** Tests the navigation drawer and its elements */
     @Test
@@ -61,7 +72,7 @@ class MainActivityTest {
         // register next activity that need to be monitored.
         val activityMonitor = getInstrumentation().addMonitor(SearchActivity::class.java.name, null, false)
 
-        // click on the history button
+        // click on the search button
         onView(withId(R.id.action_search)).perform(click())
 
         //Watch for the timeout
@@ -90,13 +101,6 @@ class MainActivityTest {
         // if nextActivity isn't null, a NotificationActivity has opened
         assertNotNull(nextActivity)
         nextActivity.finish()
-    }
-
-    /** Finishes the activity  */
-    @After
-    @Throws(Exception::class)
-    fun tearDown() {
-        mActivity.finish()
     }
 
 }

@@ -41,7 +41,7 @@ class TopStoriesFragment : ListFragment(), AdapterView.OnItemLongClickListener {
 
     /**  */
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_list, container, false)
         mList = view.findViewById(android.R.id.list)
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter

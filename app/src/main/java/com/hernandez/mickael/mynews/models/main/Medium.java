@@ -38,7 +38,6 @@ public class Medium {
 
     @SerializedName("media-metadata")
     @Expose
-    //@JsonAdapter(MediumAdapterFactory.class)
     private List<MediaMetadatum> mediaMetadata = null;
 
     public String getUrl() {

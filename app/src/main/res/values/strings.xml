@@ -1,27 +1,40 @@
 <resources>
-    <string name="app_name">MyNews</string>
+    <!-- NYT API Key -->
+    <string name="nyt_api_key" translatable="false">79267985f9cc49558b809254d951d64c</string>
 
+    <!-- App-related strings -->
+    <string name="app_name" translatable="false">MyNews</string>
+    <string name="app_about">MyNews is a open-source news application using the New York Times API. It is a project realised by Mickaël Hernandez for the Android formation of OpenClassrooms.</string>
+
+    <!-- Navigation drawer strings -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="all_categories">All categories</string>
 
     <!-- Actions strings -->
-    <string name="action_notifications">Notifications</string>
+    <string name="action_notifications" translatable="false">Notifications</string>
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
     <string name="action_search">Search</string>
-    <string name="action_webview">WebView</string>
+    <string name="action_webview" translatable="false">WebView</string>
+    <string name="action_result">Result</string>
 
+    <!-- API Names -->
     <string name="top_stories">Top Stories</string>
     <string name="most_popular">Most Popular</string>
-    <string name="all_categories">All categories</string>
 
-    <string name="nyt_api_key">79267985f9cc49558b809254d951d64c</string>
+    <!-- Empty list placeholder -->
     <string name="text_empty">No results</string>
+
+    <!-- SearchActivity strings -->
     <string name="search_query_terms">Search query term</string>
-    <string name="enable_notifications_once_per_day">Enable notifications (once per day)</string>
     <string name="begin_date">Begin Date</string>
     <string name="end_date">End Date</string>
     <string name="missing_parameters">There are missing parameters.</string>
-    <string name="action_result">Result</string>
+
+    <!-- NotificationActivity strings -->
+    <string name="enable_notifications_once_per_day">Enable notifications (once per day)</string>
     <string name="notification_keywords">Key words triggering the notification (separated by space)</string>
+    <string name="app_help">Here are some tips to help you :     • Checkboxes in Notifications page generates dedicated tabs in the main page.    • If you don\'t specify dates for your research, it will search from the beginning of the NYT until now.</string>
+
 </resources>

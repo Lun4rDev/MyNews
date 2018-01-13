@@ -107,9 +107,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return true
             }
             // Help
-            R.id.action_help -> return true
+            R.id.action_help -> {
+                startActivity(Intent(this, HelpActivity::class.java))
+                return true
+            }
             // About
-            R.id.action_about -> return true
+            R.id.action_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

@@ -91,8 +91,8 @@ class NotificationActivity : AppCompatActivity() {
     private fun setRecurringAlarm(context: Context) {
         val updateTime = Calendar.getInstance()
         updateTime.timeZone = TimeZone.getTimeZone("GMT")
-        updateTime.set(Calendar.HOUR_OF_DAY, 11)
-        updateTime.set(Calendar.MINUTE, 45)
+        updateTime.set(Calendar.HOUR_OF_DAY, 14)
+        updateTime.set(Calendar.MINUTE, 47)
 
         val intent = Intent(context, AlarmReceiver::class.java)
         recurringNotif = PendingIntent.getBroadcast(context,

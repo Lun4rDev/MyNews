@@ -42,6 +42,10 @@ private String documentType;
 @Expose
 private String newDesk;
 
+@SerializedName("section_name")
+@Expose
+private String section;
+
 @SerializedName("type_of_material")
 @Expose
 private String typeOfMaterial;
@@ -135,6 +139,14 @@ return newDesk;
 public void setNewDesk(String newDesk) {
 this.newDesk = newDesk;
 }
+
+public String getSection() {
+        return section;
+    }
+
+public void setSection(String section) {
+        this.section = section;
+    }
 
 public String getTypeOfMaterial() {
 return typeOfMaterial;

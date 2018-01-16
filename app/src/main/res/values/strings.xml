@@ -36,5 +36,7 @@
     <string name="enable_notifications_once_per_day">Enable notifications (once per day)</string>
     <string name="notification_keywords">Key words triggering the notification (separated by space)</string>
     <string name="app_help">Here are some tips to help you :     • Checkboxes in Notifications page generates dedicated tabs in the main page.    • If you don\'t specify dates for your research, it will search from the beginning of the NYT until now.</string>
+    <string name="notification_text">There is %1$d new articles about your %2$d selected subjects.</string>
+    <string name="nocategory">No category</string>
 
 </resources>

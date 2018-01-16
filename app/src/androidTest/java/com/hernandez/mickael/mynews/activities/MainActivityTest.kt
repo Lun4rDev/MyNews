@@ -2,26 +2,21 @@ package com.hernandez.mickael.mynews.activities
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.InstrumentationRegistry.getInstrumentation
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.Espresso.*
+import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.contrib.DrawerActions
 import android.support.test.espresso.contrib.NavigationViewActions
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import com.hernandez.mickael.mynews.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.junit.After
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.Espresso.onData
-import android.widget.ListView
-import com.hernandez.mickael.mynews.models.main.Article
-import org.hamcrest.CoreMatchers.*
+import org.junit.Test
 
 
 /**
@@ -48,14 +43,14 @@ class MainActivityTest {
         mActivity.finish()
     }
 
-
     /** Tests that the tab lists are not empty, hence that both api call and gson conversion are ok */
     @Test
     fun articles(){
-        onData(anything())
-                .inAdapterView(allOf(withId(android.R.id.list), isClickable()))
-                .atPosition(0).perform(click())
-        //onView(allOf(withId(android.R.id.list))).perform(click())
+        /*onData(anything())
+                .inAdapterView(allOf(withId(android.R.id.list), withEffectiveVisibility(Visibility.VISIBLE)))
+                .atPosition(0).perform(click())*/
+        //onView(allOf(withId(android.R.id.list), withEffectiveVisibility(Visibility.VISIBLE))).perform(click())
+        //onView(withIndex(withId(android.R.id.list), 0)).perform(click())
     }
 
     /** Tests the navigation drawer and its elements */

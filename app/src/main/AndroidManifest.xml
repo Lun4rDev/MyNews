@@ -48,6 +48,8 @@
                   android:label="@string/action_help"
                   android:parentActivityName=".activities.MainActivity"/>
 
+        <receiver android:name=".receiver.AlarmReceiver"
+                  android:exported="true"/>
     </application>
 
 </manifest>

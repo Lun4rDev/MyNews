@@ -6,15 +6,16 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/list_topstories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
-    <TextView
-        android:id="@android:id/empty"
+    <ProgressBar
+        android:id="@+id/progressBar_ts"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_empty"
-        android:visibility="gone"/>
+        android:layout_gravity="center"/>
 
 </LinearLayout>

@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
+import android.widget.ProgressBar
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
 import com.hernandez.mickael.mynews.enums.Section

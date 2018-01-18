@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.ListFragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.ProgressBar
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.activities.WebViewActivity
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
@@ -27,7 +29,7 @@ import android.widget.Toast
 /**
  * Created by Mickaël Hernandez on 25/10/2017.
  */
-class TopStoriesFragment : ListFragment(), AdapterView.OnItemLongClickListener {
+class TopStoriesFragment : Fragment(), AdapterView.OnItemLongClickListener {
     val LOG_TAG = "DebugTag"
 
     /** ArrayList of articles */
@@ -41,10 +43,20 @@ class TopStoriesFragment : ListFragment(), AdapterView.OnItemLongClickListener {
 
     /**  */
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_list, container, false)
-        mList = view.findViewById(android.R.id.list)
+        val view = inflater!!.inflate(R.layout.fragment_topstories, container, false)
+        mList = view.findViewById(R.id.list_topstories)
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
+        var spinner = view.findViewById<ProgressBar>(R.id.progressBar_ts)
+        // Item click listener
+        mList.onItemClickListener = AdapterView.OnItemClickListener{ a: AdapterView<*>, v: View, i: Int, l: Long ->
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtra("url", mArray[i].url)
+            intent.putExtra("title", mArray[i].title)
+            startActivity(intent)
+        }
+
+        // API Call
         val apiService = ApiSingleton.getInstance()
         apiService.topStories().enqueue(object : Callback<MainResponse> {
             override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
@@ -52,24 +64,18 @@ class TopStoriesFragment : ListFragment(), AdapterView.OnItemLongClickListener {
                 mArray.addAll(response?.body()?.articles!!.asIterable())
                 Log.d("TABSIZE", mArray.size.toString())
                 mAdapter.notifyDataSetChanged()
+                spinner.visibility = View.GONE
+                mList.visibility = View.VISIBLE
             }
 
             override fun onFailure(call: Call<MainResponse>?, t: Throwable?) {
-                Log.d(LOG_TAG, "MOSTPOPULAR API CALL FAILED : ")
                 t?.printStackTrace()
+                spinner.visibility = View.GONE
+                Toast.makeText(context, getString(R.string.text_empty), Toast.LENGTH_SHORT).show()
             }
 
         })
         return view
-    }
-
-    override fun onListItemClick(l: ListView?, v: View?, position: Int, id: Long) {
-        Log.d(LOG_TAG, "ONLISTITEMCLICKTRIGGERED")
-        super.onListItemClick(l, v, position, id)
-        val intent = Intent(activity, WebViewActivity::class.java)
-        intent.putExtra("url", mArray[position].url)
-        intent.putExtra("title", mArray[position].title)
-        startActivity(intent)
     }
 
     override fun onItemLongClick(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long): Boolean {

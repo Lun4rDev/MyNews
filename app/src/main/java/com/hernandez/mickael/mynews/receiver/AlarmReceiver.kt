@@ -1,13 +1,16 @@
 package com.hernandez.mickael.mynews.receiver
 
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.support.v4.app.NotificationCompat
 import android.util.Log
 
 import com.hernandez.mickael.mynews.R
+import com.hernandez.mickael.mynews.activities.MainActivity
 import com.hernandez.mickael.mynews.api.ApiSingleton
 import com.hernandez.mickael.mynews.enums.SectionSingleton
 import com.hernandez.mickael.mynews.models.search.SearchResponse
@@ -39,16 +42,23 @@ class AlarmReceiver : BroadcastReceiver() {
 
             })
         }
+        // Intent opened by the click on notification
+        val pI = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0)
 
+        // Building the notification
         val mBuilder = NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher))
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getString(R.string.notification_text, sum, SectionSingleton.sections.size))
+                .setContentIntent(pI)
+                .setAutoCancel(true) // Removes the notification when clicked
 
         // Gets instance of NotificationManager service
         val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        mNotificationManager?.notify(0, mBuilder.build())
+        // Notifies
+        mNotificationManager.notify(0, mBuilder.build())
     }
 
     companion object {

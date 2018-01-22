@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import android.widget.*
@@ -89,16 +90,24 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun setRecurringAlarm(context: Context) {
-        val updateTime = Calendar.getInstance()
+        /*val updateTime = Calendar.getInstance()
         updateTime.timeZone = TimeZone.getTimeZone("GMT")
-        updateTime.set(Calendar.HOUR_OF_DAY, 14)
-        updateTime.set(Calendar.MINUTE, 47)
+        updateTime.set(Calendar.HOUR_OF_DAY, 12)
+        updateTime.set(Calendar.MINUTE, 13)*/
 
+        // Alarm intent
         val intent = Intent(context, AlarmReceiver::class.java)
         recurringNotif = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-        alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+
+        // Repeats the alarm in an hour everyday
+        alarms.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, AlarmManager.INTERVAL_HOUR, AlarmManager.INTERVAL_DAY, recurringNotif)
+        /*val thirtySecondsFromNow = System.currentTimeMillis() + 5 * 1000
+        alarms.set(AlarmManager.RTC_WAKEUP, thirtySecondsFromNow, recurringNotif)*/
+
+        NotificationCompat.Builder(context, "MyNews")
+        /*alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 updateTime.timeInMillis,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringNotif)
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, recurringNotif)*/
     }
 }

@@ -134,6 +134,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.item_topstories -> {
                 tabLayout.getTabAt(1)?.select()
             }
+            // Search
+            R.id.item_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                return true
+            }
+            // Notification
+            R.id.item_notifications -> {
+                startActivity(Intent(this, NotificationActivity::class.java))
+                return true
+            }
+            // Help
+            R.id.item_help -> {
+                startActivity(Intent(this, HelpActivity::class.java))
+                return true
+            }
+            // About
+            R.id.item_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+                return true
+            }
             // If a number between 0 and tabCount
             else -> {
                 (0..tabLayout.tabCount)

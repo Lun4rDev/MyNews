@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.ListFragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,22 +13,22 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.activities.WebViewActivity
 import com.hernandez.mickael.mynews.adapters.ArticleViewAdapter
 import com.hernandez.mickael.mynews.api.ApiSingleton
-import com.hernandez.mickael.mynews.models.main.MainResponse
 import com.hernandez.mickael.mynews.models.main.Article
+import com.hernandez.mickael.mynews.models.main.MainResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.widget.Toast
 
 
 /**
  * Created by Mickaël Hernandez on 25/10/2017.
  */
-class TopStoriesFragment : Fragment(), AdapterView.OnItemLongClickListener {
+class TopStoriesFragment : Fragment() {
     val LOG_TAG = "DebugTag"
 
     /** ArrayList of articles */
@@ -56,6 +55,14 @@ class TopStoriesFragment : Fragment(), AdapterView.OnItemLongClickListener {
             startActivity(intent)
         }
 
+        mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("url", mArray[i].url)
+            clipboard.primaryClip = clip
+            Toast.makeText(context, getString(R.string.urlcopied), Toast.LENGTH_SHORT).show()
+            true
+        }
+
         // API Call
         val apiService = ApiSingleton.getInstance()
         apiService.topStories().enqueue(object : Callback<MainResponse> {
@@ -76,13 +83,5 @@ class TopStoriesFragment : Fragment(), AdapterView.OnItemLongClickListener {
 
         })
         return view
-    }
-
-    override fun onItemLongClick(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long): Boolean {
-        val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("url", mArray[pos].url)
-        clipboard.primaryClip = clip
-        Toast.makeText(context, "Article url copied into clipboard.", Toast.LENGTH_SHORT).show()
-        return true
     }
 }

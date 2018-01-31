@@ -32,7 +32,7 @@ import retrofit2.Response
 /**
  * Created by Mickaël Hernandez on 25/10/2017.
  */
-class MostPopularFragment : Fragment(), AdapterView.OnItemLongClickListener {
+class MostPopularFragment : Fragment() {
     val LOG_TAG = "DebugTag"
 
     /** ArrayList of articles */
@@ -59,6 +59,14 @@ class MostPopularFragment : Fragment(), AdapterView.OnItemLongClickListener {
             startActivity(intent)
         }
 
+        mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("url", mArray[i].url)
+            clipboard.primaryClip = clip
+            Toast.makeText(context, getString(R.string.urlcopied), Toast.LENGTH_SHORT).show()
+            true
+        }
+
         // API Call
         val apiService = ApiSingleton.getInstance()
         apiService.mostPopular().enqueue(object : Callback<MainResponse> {
@@ -79,13 +87,5 @@ class MostPopularFragment : Fragment(), AdapterView.OnItemLongClickListener {
 
         })
         return view
-    }
-
-    override fun onItemLongClick(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long): Boolean {
-        val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("url", mArray[pos].url)
-        clipboard.primaryClip = clip
-        Toast.makeText(context, "Article url copied into clipboard.", Toast.LENGTH_SHORT).show()
-        return true
     }
 }

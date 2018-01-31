@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.ListFragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +29,7 @@ import java.util.*
 /**
  * Created by Mickaël Hernandez on 25/10/2017.
  */
-class SectionFragment : Fragment(), AdapterView.OnItemLongClickListener {
+class SectionFragment : Fragment() {
     val LOG_TAG = "DebugTag"
 
     /** Section name */
@@ -59,6 +58,15 @@ class SectionFragment : Fragment(), AdapterView.OnItemLongClickListener {
             intent.putExtra("title", mArray[i].headline.main)
             startActivity(intent)
         }
+
+        mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
+            val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("url", mArray[i].webUrl)
+            clipboard.primaryClip = clip
+            Toast.makeText(context, getString(R.string.urlcopied), Toast.LENGTH_SHORT).show()
+            true
+        }
+
         val apiService = ApiSingleton.getInstance()
         apiService.section(mSection).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
@@ -82,13 +90,5 @@ class SectionFragment : Fragment(), AdapterView.OnItemLongClickListener {
 
         })
         return view
-    }
-
-    override fun onItemLongClick(p0: AdapterView<*>?, p1: View?, pos: Int, p3: Long): Boolean {
-        val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("url", mArray[pos].webUrl)
-        clipboard.primaryClip = clip
-        Toast.makeText(context, "Article url copied into clipboard.", Toast.LENGTH_SHORT).show()
-        return true
     }
 }

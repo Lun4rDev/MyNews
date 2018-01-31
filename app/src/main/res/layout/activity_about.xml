@@ -15,16 +15,22 @@
         android:layout_marginTop="25dp"
         app:srcCompat="@mipmap/ic_launcher"
         tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="66dp"/>
+        tools:layout_editor_absoluteY="66dp"
+        android:contentDescription="@string/app_icon"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
-        android:layout_weight="1"
         android:text="@string/app_about"
         android:textAlignment="center"
         android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/github_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_on_github" />
 
 </LinearLayout>

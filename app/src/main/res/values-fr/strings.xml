@@ -14,8 +14,20 @@
     <string name="missing_parameters">Paramètres manquants</string>
     <string name="action_result">Résultat</string>
     <string name="app_about">MyNews est une application open-source d\'actualités utilisant l\'API du New York Times. C\'est un projet réalisé par Mickaël Hernandez pour la formation Android d\'OpenClassrooms.</string>
-    <string name="app_help">Voici quelques conseils pour vous aider :     • Les cases à cocher sur la page Notification génèrent des onglets dédiés sur la page principale.\\n\\n   •     •     •</string>
+    <string name="app_help">Voici quelques conseils pour vous aider à utiliser l\'application : </string>
+    <string-array
+        name="string_array_help">
+        <item>• Les cases à cocher sur la page Notification génèrent des onglets dédiés sur la page principale.</item>
+        <item>• Un appui long sur une ligne d\'article copie le lien de cet article dans le presse-papier de votre téléphone.</item>
+        <item>• Si vous ne spécifiez aucune date dans votre recherche, elle ira du début du New York Times à aujourd\'hui.</item>
+        <item>• Vous pouvez accéder à toutes les pages de l\'application via le menu tiroir on sur la gauche de la page principale.</item>
+    </string-array>
     <string name="begin_date">Date de début</string>
     <string name="end_date">Date de fin</string>
     <string name="notification_keywords">Mots-clés activant la notification (séparés par un espace)</string>
+    <string name="urlcopied">Url de l\'article copié dans votre presse-papier.</string>
+    <string name="nocategory">Pas de catégorie</string>
+    <string name="notification_text">Il y a %1$d nouveaux articles à propos de vos %2$d catégories sélectionnés.</string>
+    <string name="app_icon">Icône d\'application</string>
+    <string name="see_on_github">Voir sur GitHub</string>
 </resources>

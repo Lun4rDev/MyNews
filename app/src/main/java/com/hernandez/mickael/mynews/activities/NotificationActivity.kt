@@ -14,7 +14,6 @@ import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.enums.Section
 import com.hernandez.mickael.mynews.enums.SectionSingleton
 import com.hernandez.mickael.mynews.receiver.AlarmReceiver
-import java.util.*
 
 
 /**

@@ -4,6 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/** POJO class used with the Search API */
 public class Doc {
 
 @SerializedName("web_url")

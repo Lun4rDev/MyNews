@@ -11,12 +11,13 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.hernandez.mickael.mynews.R
 
+/** Activity displaying the web page of an article */
 class WebViewActivity : AppCompatActivity() {
 
+    /** WebView view */
 	lateinit var webView : WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_webview)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -25,6 +26,8 @@ class WebViewActivity : AppCompatActivity() {
         val url : String? = intent.extras.getString("url")
         val title : String? = intent.extras.getString("title")
 
+        // Set activity title to the article title
+        this.title = title
 
         if(url != "" && url != null) {
             webView = findViewById(R.id.webView)
@@ -32,9 +35,9 @@ class WebViewActivity : AppCompatActivity() {
             webView.webViewClient = WebViewClient()
             // loads the article url into the webview
             webView.loadUrl(url)
+        } else {
+            finish()
         }
-        // Set activity title to the article title
-        this.title = title
 	}
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

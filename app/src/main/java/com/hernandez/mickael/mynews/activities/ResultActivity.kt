@@ -45,13 +45,18 @@ class ResultActivity : AppCompatActivity() {
         mList = findViewById(R.id.resultList)
         mAdapter = DocViewAdapter(applicationContext, R.layout.article_row, mArray)
         mList.adapter = mAdapter
+        mList.emptyView = findViewById<TextView>(R.id.resultEmpty)
 
-        // If any argument is missing, quit the activity
-        var values = intent.extras.getStringArray("values")
+        // Get values from intent extras. values are :
+        // 1 : query text | 2 : begin date | 3 : end date | 4 : sections
+        val values = intent.extras.getStringArray("values")
+
+        // If any value is missing, quit the activity
         if(values.size < 4) {
             finish()
         }
 
+        // Title of the activity is the title of the article
         title = values[0]
 
         // Item click listener
@@ -71,6 +76,7 @@ class ResultActivity : AppCompatActivity() {
             true
         }
 
+        // API call
         ApiSingleton.getInstance().articleSearch(values[0], values[1], values[2], values[3]).enqueue(object : Callback<SearchResponse> {
             override fun onFailure(call: Call<SearchResponse>?, t: Throwable?) {
                 Toast.makeText(applicationContext, "The research failed.", Toast.LENGTH_SHORT).show()
@@ -79,8 +85,9 @@ class ResultActivity : AppCompatActivity() {
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
                 //if(res != null){
                     mArray.addAll(response?.body()?.searchSubResponse?.docs!!.asIterable())
+                    mArray.sortByDescending { it.pubDate }
                     mAdapter.notifyDataSetChanged()
-                    findViewById<TextView>(R.id.resultEmpty).visibility = View.GONE
+                    //findViewById<TextView>(R.id.resultEmpty).visibility = View.GONE
                 //} else {
                 //    Toast.makeText(applicationContext, "No results", Toast.LENGTH_SHORT).show()
                 //}

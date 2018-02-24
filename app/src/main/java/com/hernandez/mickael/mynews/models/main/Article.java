@@ -4,6 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/** POJO class used with the Most Popular and Top Stories API */
 public class Article {
 
     public Article(String title, String date, String section){

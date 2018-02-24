@@ -13,15 +13,6 @@ class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager)
 
     override fun getItem(position: Int): Fragment {
         return mFragmentList[position]
-        /*when (position) {
-            0 // Fragment # 0 - This will show FirstFragment
-            -> return MostPopularFragment.newInstance(0, "Page # 1")
-            1 // Fragment # 0 - This will show FirstFragment different title
-            -> return FirstFragment.newInstance(1, "Page # 2")
-            2 // Fragment # 1 - This will show SecondFragment
-            -> return SecondFragment.newInstance(2, "Page # 3")
-            else -> return null
-        }*/
     }
 
     override fun getCount(): Int {

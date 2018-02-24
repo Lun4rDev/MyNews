@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Created by Mickael Hernandez on 22/02/17.
  */
 
-/** NYTimes API interface */
+/** New York Times API interface */
 public interface ApiInterface {
 
     /** NYT API Key */

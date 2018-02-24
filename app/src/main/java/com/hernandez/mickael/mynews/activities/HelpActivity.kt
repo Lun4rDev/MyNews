@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.activity_help.*
 /**
  * Created by Mickael Hernandez on 10/01/2018.
  */
+
+/** An activity display tips and tricks regarding the use of the application */
 class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

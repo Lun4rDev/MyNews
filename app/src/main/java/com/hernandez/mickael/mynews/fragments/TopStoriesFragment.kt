@@ -43,10 +43,12 @@ class TopStoriesFragment : Fragment() {
     /**  */
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_topstories, container, false)
+        retainInstance = true
         mList = view.findViewById(R.id.list_topstories)
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
         var spinner = view.findViewById<ProgressBar>(R.id.progressBar_ts)
+
         // Item click listener
         mList.onItemClickListener = AdapterView.OnItemClickListener{ a: AdapterView<*>, v: View, i: Int, l: Long ->
             val intent = Intent(activity, WebViewActivity::class.java)
@@ -55,6 +57,7 @@ class TopStoriesFragment : Fragment() {
             startActivity(intent)
         }
 
+        // Long item click listener
         mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("url", mArray[i].url)
@@ -69,6 +72,7 @@ class TopStoriesFragment : Fragment() {
             override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())
                 mArray.addAll(response?.body()?.articles!!.asIterable())
+                mArray.sortByDescending { it.publishedDate }
                 Log.d("TABSIZE", mArray.size.toString())
                 mAdapter.notifyDataSetChanged()
                 spinner.visibility = View.GONE

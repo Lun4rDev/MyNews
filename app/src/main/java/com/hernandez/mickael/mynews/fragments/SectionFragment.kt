@@ -46,11 +46,13 @@ class SectionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_section, container, false)
+        retainInstance = true
         mSection = this.arguments.getString("section")
         mList = view.findViewById(R.id.list_section)
         mAdapter = DocViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
         var spinner = view.findViewById<ProgressBar>(R.id.progressBar_s)
+
         // Item click listener
         mList.onItemClickListener = AdapterView.OnItemClickListener{ a: AdapterView<*>, v: View, i: Int, l: Long ->
             val intent = Intent(activity, WebViewActivity::class.java)
@@ -59,6 +61,7 @@ class SectionFragment : Fragment() {
             startActivity(intent)
         }
 
+        // Long item click listener
         mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("url", mArray[i].webUrl)
@@ -73,6 +76,7 @@ class SectionFragment : Fragment() {
                 Log.d(LOG_TAG, response?.errorBody().toString())
                 if(response?.body()?.searchSubResponse?.docs != null){
                     mArray.addAll(response.body()?.searchSubResponse!!.docs.asIterable())
+                    mArray.sortByDescending { it.pubDate }
                 }
 
                 Log.d("TABSIZE", mArray.size.toString())

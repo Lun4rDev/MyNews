@@ -7,13 +7,11 @@ import android.view.View
 import android.widget.*
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.enums.Section
-import com.hernandez.mickael.mynews.enums.SectionSingleton
+import com.hernandez.mickael.mynews.enums.NotifSingleton
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
-import android.app.PendingIntent.getActivity
-import android.content.DialogInterface
-import android.util.Log
 import android.view.View.OnClickListener
+import android.view.ViewGroup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,12 +57,14 @@ class SearchActivity : AppCompatActivity() {
         for(section in Section.values()){
             val cb = CheckBox(applicationContext)
             cb.text = section.name
-            // TODO : set gridlayout column size
-            mCheckLayout.addView(cb)
+            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val m = 25
+            params.setMargins(m, m, m, m)
+            mCheckLayout.addView(cb, params)
         }
 
         // Checking the checkboxes saved in shared preferences
-        for(section in SectionSingleton.sections){
+        for(section in NotifSingleton.sections){
             val cb = mCheckLayout.getChildAt(Section.valueOf(section).id) as CheckBox
             cb.isChecked = true
         }

@@ -46,6 +46,7 @@ class MostPopularFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_mostpopular, container, false)
+        retainInstance = true
         mList = view.findViewById(R.id.list_mostpopular)
         mAdapter = ArticleViewAdapter(context, R.layout.article_row, mArray)
         mList.adapter = mAdapter
@@ -59,6 +60,7 @@ class MostPopularFragment : Fragment() {
             startActivity(intent)
         }
 
+        // Item long click listener
         mList.onItemLongClickListener = AdapterView.OnItemLongClickListener{ adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
             val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("url", mArray[i].url)
@@ -73,6 +75,7 @@ class MostPopularFragment : Fragment() {
             override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())
                 mArray.addAll(response?.body()?.articles!!.asIterable())
+                mArray.sortByDescending { it.publishedDate }
                 Log.d("TABSIZE", mArray.size.toString())
                 mAdapter.notifyDataSetChanged()
                 spinner.visibility = View.GONE

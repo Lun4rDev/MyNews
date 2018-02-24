@@ -11,6 +11,8 @@ import android.net.Uri
 /**
  * Created by Mickael Hernandez on 10/01/2018.
  */
+
+/** An activity presenting the application */
 class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

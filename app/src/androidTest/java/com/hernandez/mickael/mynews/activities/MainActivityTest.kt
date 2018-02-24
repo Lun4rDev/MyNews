@@ -83,7 +83,7 @@ class MainActivityTest {
 
     /** Tests that the search button opens a SearchActivity */
     @Test
-    fun search() {
+    fun launchSearchActivity() {
         // register next activity that need to be monitored.
         val activityMonitor = getInstrumentation().addMonitor(SearchActivity::class.java.name, null, false)
 
@@ -100,7 +100,7 @@ class MainActivityTest {
 
     /** Tests that the notification menu option opens a NotificationActivity */
     @Test
-    fun notifications() {
+    fun launchNotificationActivity() {
         // opens the actionbar menu
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext())
 

@@ -19,6 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by dw on 22/02/17.
  */
 
+/** API Singleton setting up Retrofit with OkHttp3 and Gson, and using the API interface */
 public class ApiSingleton {
 
     /** ApiInterface instance */

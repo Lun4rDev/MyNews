@@ -12,7 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.hernandez.mickael.mynews.R
 import com.hernandez.mickael.mynews.adapters.ViewPagerAdapter
-import com.hernandez.mickael.mynews.enums.SectionSingleton
+import com.hernandez.mickael.mynews.enums.NotifSingleton
 import com.hernandez.mickael.mynews.fragments.MostPopularFragment
 import com.hernandez.mickael.mynews.fragments.SectionFragment
 import com.hernandez.mickael.mynews.fragments.TopStoriesFragment
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView = findViewById(R.id.nav_view)
         //val subMenu = navView.menu.ad
 
-        SectionSingleton.loadSections(applicationContext)
+        NotifSingleton.loadData(applicationContext)
 
         // Setting viewpager adapter, linking to tab layout
         viewPager.adapter = mViewPagerAdapter
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mViewPagerAdapter.addFragment(TopStoriesFragment(), getString(R.string.top_stories))
 
         // Adding fragment and menu row for each selected sections
-        for(s : String in SectionSingleton.sections){
+        for(s : String in NotifSingleton.sections){
             val bundle = Bundle()
             bundle.putString("section", s)
             val sf = SectionFragment()

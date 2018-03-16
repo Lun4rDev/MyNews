@@ -75,6 +75,7 @@ class SectionFragment : Fragment() {
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
                 Log.d(LOG_TAG, response?.errorBody().toString())
                 if(response?.body()?.searchSubResponse?.docs != null){
+                    mArray.clear()
                     mArray.addAll(response.body()?.searchSubResponse!!.docs.asIterable())
                     mArray.sortByDescending { it.pubDate }
                 }

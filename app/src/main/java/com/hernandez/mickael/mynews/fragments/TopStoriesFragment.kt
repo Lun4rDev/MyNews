@@ -71,12 +71,15 @@ class TopStoriesFragment : Fragment() {
         apiService.topStories().enqueue(object : Callback<MainResponse> {
             override fun onResponse(call: Call<MainResponse>?, response: Response<MainResponse>?) {
                 //Log.d(LOG_TAG, response?.errorBody().toString())
-                mArray.addAll(response?.body()?.articles!!.asIterable())
-                mArray.sortByDescending { it.publishedDate }
-                Log.d("TABSIZE", mArray.size.toString())
-                mAdapter.notifyDataSetChanged()
-                spinner.visibility = View.GONE
-                mList.visibility = View.VISIBLE
+                if(response?.body()?.articles != null){
+                    mArray.clear()
+                    mArray.addAll(response.body()?.articles!!.asIterable())
+                    mArray.sortByDescending { it.publishedDate }
+                    Log.d("TABSIZE", mArray.size.toString())
+                    mAdapter.notifyDataSetChanged()
+                    spinner.visibility = View.GONE
+                    mList.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(call: Call<MainResponse>?, t: Throwable?) {

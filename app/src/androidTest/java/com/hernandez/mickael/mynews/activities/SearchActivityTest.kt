@@ -6,7 +6,9 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.replaceText
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.isNotChecked
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import com.hernandez.mickael.mynews.R
@@ -59,6 +61,15 @@ class SearchActivityTest {
 
         //Watch for the timeout
         val nextActivity = InstrumentationRegistry.getInstrumentation().waitForMonitorWithTimeout(activityMonitor, 5000)
+
+        // making sure that at least a box is checked
+        if(nextActivity == null){
+            // Checks the Politics checkbox another time
+            onView(allOf(withText(Section.Politics.name))).perform(click())
+
+            // click on the search button another time
+            Espresso.onView(ViewMatchers.withId(R.id.search_button)).perform(ViewActions.click())
+        }
 
         // if nextActivity isn't null, a SearchActivity has opened
         assertNotNull(nextActivity)

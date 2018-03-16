@@ -5,9 +5,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.AppCompatCheckBox
 import android.view.ViewGroup
 import android.widget.*
 import com.hernandez.mickael.mynews.R
@@ -78,6 +81,8 @@ class NotificationActivity : AppCompatActivity() {
             } else {
                 alarms.cancel(recurringNotif)
             }
+            NotifSingleton.state = state
+            NotifSingleton.saveData(applicationContext)
         }))
         //NotifSingleton.loadSections(applicationContext)
 
@@ -91,9 +96,11 @@ class NotificationActivity : AppCompatActivity() {
         }
         // Adding a checkbox for each section
         for(section in Section.values()){
-            val cb = CheckBox(applicationContext)
+            val cb = AppCompatCheckBox(this)
             cb.text = section.name
             cb.tag = section.id
+            cb.setTextColor(Color.BLACK)
+            cb.supportButtonTintList = ColorStateList.valueOf(Color.BLACK)
             cb.setOnCheckedChangeListener(listener)
             val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             val m = 25

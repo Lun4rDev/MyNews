@@ -10,6 +10,9 @@ import com.hernandez.mickael.mynews.enums.Section
 import com.hernandez.mickael.mynews.enums.NotifSingleton
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.support.v7.widget.AppCompatCheckBox
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import java.text.SimpleDateFormat
@@ -55,7 +58,7 @@ class SearchActivity : AppCompatActivity() {
 
         // Filling the checkbox layout
         for(section in Section.values()){
-            val cb = CheckBox(applicationContext)
+            val cb = CheckBox(this)
             cb.text = section.name
             val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             val m = 25
